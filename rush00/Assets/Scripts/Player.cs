@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
+	public GameObject sprites;
 	public GameObject head;
 	public GameObject body;
 	public GameObject leg;
@@ -48,22 +49,34 @@ public class Player : MonoBehaviour {
 		}
 	}
 
-
-	// Update is called once per frame
-	void Update () {
-
-		handleControls ();
-
+	void makeTranslateAndAnimation() {
 		transform.Translate (new Vector3 (direction.x, direction.y, 0)
 							 * Time.deltaTime
 							 * speed);
 
 		if (direction != Vector2.zero) {
-			legAnimator.Play("legMoving");
+			legAnimator.Play ("legMoving");
 		} else {
 			Debug.Log ("idle");
 			legAnimator.Play ("idle");
 		}
+
+	}
+
+	void handleDirection() {
+		Vector3 difference = Camera.main.ScreenToWorldPoint (Input.mousePosition) - transform.position;
+		difference.Normalize ();
+		float rotation_z = Mathf.Atan2 (difference.y, difference.x) * Mathf.Rad2Deg;
+		sprites.transform.rotation = Quaternion.Euler (0f, 0f, rotation_z + 90);
+	}
+
+
+	// Update is called once per frame
+	void Update () {
+
+		handleControls ();
+		handleDirection ();
+		makeTranslateAndAnimation ();
 
 
 	}
