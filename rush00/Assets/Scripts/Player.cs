@@ -57,7 +57,7 @@ public class Player : MonoBehaviour {
 		if (direction != Vector2.zero) {
 			legAnimator.Play ("legMoving");
 		} else {
-			Debug.Log ("idle");
+			// Debug.Log ("idle");
 			legAnimator.Play ("idle");
 		}
 
