@@ -6,8 +6,11 @@ public class Player : MonoBehaviour {
 
 	public GameObject sprites;
 	public GameObject head;
+	public GameObject weaponAttach;
 	public GameObject body;
 	public GameObject leg;
+
+
 
 	public float speed;
 
