@@ -30,12 +30,17 @@ public class Enemy : MonoBehaviour {
 		int randomValue = Random.Range (0, weaponPrefabs.Count);
 		weaponPrefabs [randomValue].transform.localPosition = transform.localPosition;
 		weapon = Instantiate (weaponPrefabs [randomValue]).GetComponent<Weapon>();
+		weapon.playerWeapon = false;
 		weaponAttach.SetActive (true);
 		weaponAttach.GetComponent<SpriteRenderer> ().sprite = weapon.weaponAttach;
 	}
 
 	void FixedUpdate () {
 		HandleDirection ();
+		if (_alerted) {
+			tryToFire ();
+		}
+
 
 		if (!_alerted && _checkpoint != null) {
 			if (_target == transform.position) {
@@ -48,10 +53,6 @@ public class Enemy : MonoBehaviour {
 		// }
 
 		transform.position = Vector3.MoveTowards (transform.position, _target, speed * Time.deltaTime);
-	}
-
-	void OnCollisionEnter2D (Collision2D other) {
-
 	}
 
 	void OnTriggerExit2D (Collider2D other) {
@@ -96,4 +97,13 @@ public class Enemy : MonoBehaviour {
 		yield return new WaitForSeconds (2);
 		_alerted = false;
 	}
+
+	void tryToFire() {
+		fire ();
+	}
+
+	void fire () {
+		weapon.fire (sprites.transform.rotation, transform);
+	}
+
 }
