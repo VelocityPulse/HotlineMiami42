@@ -658,47 +658,6 @@ Prefab:
       propertyPath: m_Name
       value: wall_H
       objectReference: {fileID: 0}
-    - target: {fileID: 212081520913921020, guid: a4c28068d12a14025a639dd15585d7d0,
-        type: 2}
-      propertyPath: m_FlipX
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 212081520913921020, guid: a4c28068d12a14025a639dd15585d7d0,
-        type: 2}
-      propertyPath: m_FlipY
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4455717163940256, guid: a4c28068d12a14025a639dd15585d7d0, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 4455717163940256, guid: a4c28068d12a14025a639dd15585d7d0, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 4.183446
-      objectReference: {fileID: 0}
-    - target: {fileID: 4455717163940256, guid: a4c28068d12a14025a639dd15585d7d0, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212081520913921020, guid: a4c28068d12a14025a639dd15585d7d0,
-        type: 2}
-      propertyPath: m_SortingLayerID
-      value: 80346747
-      objectReference: {fileID: 0}
-    - target: {fileID: 212081520913921020, guid: a4c28068d12a14025a639dd15585d7d0,
-        type: 2}
-      propertyPath: m_SortingLayer
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212081520913921020, guid: a4c28068d12a14025a639dd15585d7d0,
-        type: 2}
-      propertyPath: m_SortingOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1326059652943020, guid: a4c28068d12a14025a639dd15585d7d0, type: 2}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a4c28068d12a14025a639dd15585d7d0, type: 2}
   m_IsPrefabParent: 0
@@ -707,36 +666,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4455717163940256, guid: a4c28068d12a14025a639dd15585d7d0,
     type: 2}
   m_PrefabInternal: {fileID: 388221419}
---- !u!1 &388221421 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1326059652943020, guid: a4c28068d12a14025a639dd15585d7d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 388221419}
---- !u!61 &388221422
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 388221421}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
 --- !u!1001 &392698657
 Prefab:
   m_ObjectHideFlags: 0
@@ -1081,6 +1010,30 @@ Prefab:
       propertyPath: m_Name
       value: Player (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1004442674780660, guid: a56409376903a491e8130df6ddb9dc44, type: 2}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 1884105825350694, guid: a56409376903a491e8130df6ddb9dc44, type: 2}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 1935177910034176, guid: a56409376903a491e8130df6ddb9dc44, type: 2}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 1665455384336726, guid: a56409376903a491e8130df6ddb9dc44, type: 2}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 1415657712294588, guid: a56409376903a491e8130df6ddb9dc44, type: 2}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 1702546960649828, guid: a56409376903a491e8130df6ddb9dc44, type: 2}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a56409376903a491e8130df6ddb9dc44, type: 2}
   m_IsPrefabParent: 0
@@ -1147,7 +1100,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 2
+  m_Radius: 4
 --- !u!1 &643924967
 GameObject:
   m_ObjectHideFlags: 0
