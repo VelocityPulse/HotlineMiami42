@@ -56,6 +56,10 @@ public class Player : MonoBehaviour {
 			tryPickUpWeapon ();
 		}
 
+		if (Input.GetMouseButtonDown (0) && weapon) {
+			fire ();
+		}
+
 	}
 
 	void makeTranslateAndAnimation () {
@@ -68,7 +72,6 @@ public class Player : MonoBehaviour {
 		} else {
 			legAnimator.Play ("idle");
 		}
-
 	}
 
 	void handleDirection () {
@@ -103,17 +106,15 @@ public class Player : MonoBehaviour {
 		}
 	}
 
+	void fire() {
+		
+	}
 
 	void pickUpWeapon (GameObject w) {
 		weapon = w.GetComponent<Weapon> ();
 		weaponAttach.SetActive (true);
 		weaponAttach.GetComponent<SpriteRenderer> ().sprite = weapon.weaponAttach;
 		Destroy (w.gameObject);
-	}
-
-
-	private void OnTriggerEnter2D (Collider2D collision) {
-		Debug.Log ("debug");
 	}
 
 }
