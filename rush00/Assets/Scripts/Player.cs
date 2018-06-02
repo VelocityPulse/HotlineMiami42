@@ -10,7 +10,7 @@ public class Player : MonoBehaviour {
 	public GameObject body;
 	public GameObject leg;
 
-
+	private Weapon weapon = null;
 
 	public float speed;
 
@@ -23,6 +23,7 @@ public class Player : MonoBehaviour {
 		legAnimator = leg.GetComponent<Animator> ();
 		direction = Vector2.zero;
 	}
+
 
 	void handleControls () {
 		if (Input.GetKeyDown (KeyCode.A)) {
@@ -50,9 +51,14 @@ public class Player : MonoBehaviour {
 		if (Input.GetKeyUp (KeyCode.W)) {
 			direction -= Vector2.up;
 		}
+
+		if (Input.GetKeyDown (KeyCode.E)) {
+			tryPickUpWeapon ();
+		}
+
 	}
 
-	void makeTranslateAndAnimation() {
+	void makeTranslateAndAnimation () {
 		transform.Translate (new Vector3 (direction.x, direction.y, 0)
 							 * Time.deltaTime
 							 * speed);
@@ -60,13 +66,12 @@ public class Player : MonoBehaviour {
 		if (direction != Vector2.zero) {
 			legAnimator.Play ("legMoving");
 		} else {
-			Debug.Log ("idle");
 			legAnimator.Play ("idle");
 		}
 
 	}
 
-	void handleDirection() {
+	void handleDirection () {
 		Vector3 difference = Camera.main.ScreenToWorldPoint (Input.mousePosition) - transform.position;
 		difference.Normalize ();
 		float rotation_z = Mathf.Atan2 (difference.y, difference.x) * Mathf.Rad2Deg;
@@ -80,4 +85,35 @@ public class Player : MonoBehaviour {
 		handleDirection ();
 		makeTranslateAndAnimation ();
 	}
+
+	private void tryPickUpWeapon () {
+		RaycastHit2D hit;
+		GameObject target;
+		hit = Physics2D.Raycast (transform.localPosition,
+								  Vector2.up,
+								  0,
+								  LayerMask.GetMask ("Weapon"));
+
+		if (hit) {
+			target = hit.collider.gameObject;
+			if (target.tag == "Weapon" &&
+				Vector3.Distance (target.transform.localPosition, transform.localPosition) < 0.4) {
+				pickUpWeapon (target);
+			}
+		}
+	}
+
+
+	void pickUpWeapon (GameObject w) {
+		weapon = w.GetComponent<Weapon> ();
+		weaponAttach.SetActive (true);
+		weaponAttach.GetComponent<SpriteRenderer> ().sprite = weapon.weaponAttach;
+		Destroy (w.gameObject);
+	}
+
+
+	private void OnTriggerEnter2D (Collider2D collision) {
+		Debug.Log ("debug");
+	}
+
 }
