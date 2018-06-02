@@ -11,7 +11,7 @@ public class Projectile : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		if (!coldWeapon) {
-			StartCoroutine (killProjectile(3));
+			StartCoroutine (killProjectile (3));
 		} else {
 			StartCoroutine (killProjectile (0.04f));
 		}
@@ -31,7 +31,6 @@ public class Projectile : MonoBehaviour {
 		if (collision.gameObject.layer == LayerMask.NameToLayer ("Wall")) {
 			Destroy (gameObject);
 		}
-
 		if (tag == "Player" && collision.gameObject.layer == LayerMask.NameToLayer ("Enemy")) {
 			Destroy (collision.gameObject);
 		} else if (tag == "Enemy" && collision.gameObject.layer == LayerMask.NameToLayer ("Player")) {
