@@ -5,18 +5,20 @@ using UnityEngine;
 public class Enemy : MonoBehaviour {
 
 	private Vector3 _target;
+	private Weapon weapon;
 	private bool _alive;
 	private bool _alerted;
 
-
 	[SerializeField] private Checkpoint _checkpoint = null;
 	[SerializeField] private float speed;
-	// [SerializeField] private Weapon _weapon;
 
+	public List<GameObject> weaponPrefabs;
 	public GameObject sprites;
+	public GameObject head;
+	public GameObject weaponAttach;
+	public GameObject body;
 	public GameObject leg;
 	public bool moving;
-
 
 	void Start () {
 		_target = transform.position;
@@ -24,6 +26,12 @@ public class Enemy : MonoBehaviour {
 		if (moving) {
 			leg.GetComponent<Animator> ().Play ("legMoving");
 		}
+
+		int randomValue = Random.Range (0, weaponPrefabs.Count);
+		weaponPrefabs [randomValue].transform.localPosition = transform.localPosition;
+		weapon = Instantiate (weaponPrefabs [randomValue]).GetComponent<Weapon>();
+		weaponAttach.SetActive (true);
+		weaponAttach.GetComponent<SpriteRenderer> ().sprite = weapon.weaponAttach;
 	}
 
 	void FixedUpdate () {
