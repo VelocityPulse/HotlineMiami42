@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour {
 	private Vector3 _target;
 	private bool _alive;
 	private bool _alerted;
-	private float _angle;
+	// private float _angle;
 	[SerializeField] private Checkpoint _checkpoint;
 	[SerializeField] private float speed;
 	// [SerializeField] private Weapon _weapon;
@@ -20,12 +20,14 @@ public class Enemy : MonoBehaviour {
 
 		_target = transform.position;
 		_alerted = false;
-		_angle = AngleBetweenVector2(transform.position, _target);		
-		speed = 5;
+		// _angle = AngleBetweenVector2(transform.position, _target);		
+		// speed = 5;
 	}
 	
 	void FixedUpdate () {
-		_angle = AngleBetweenVector2(transform.position, _target);
+
+
+		// _angle = AngleBetweenVector2(transform.position, _target);
 		HandleDirection();
 		
 		// if (Input.GetMouseButtonDown(0)) {
@@ -42,7 +44,9 @@ public class Enemy : MonoBehaviour {
 		// 	_target = new Vector3(Random.Range(transform.position.x -2, transform.position.x + 2), Random.Range(transform.position.y -2, transform.position.y + 2));
 		// }
 
-		// transform.position = Vector3.MoveTowards(transform.position, _target, speed * Time.deltaTime);
+
+
+		transform.position = Vector3.MoveTowards(transform.position, _target, speed * Time.deltaTime);
 		transform.rotation = Quaternion.Euler (0f, 0f, 0);
 
 	}
@@ -64,44 +68,18 @@ public class Enemy : MonoBehaviour {
 
 		if (other.gameObject.tag == "Player") {
 			// TODO passer les portes !
-			Vector3 targetPosition = other.gameObject.transform.position;
+			Vector3 playerPos = other.gameObject.transform.position;
 			if (_alerted) {
-				_target = targetPosition;
-				// Debug.DrawLine(transform.position, targetPosition);
+				_target = playerPos;
 			} else {
-				// print(targetPosition);
 
-				Vector3 dir = (targetPosition - transform.position).normalized;
-				print("debug" + dir);
+				Vector3 dir = (playerPos - transform.position).normalized;
 				RaycastHit2D hit = Physics2D.Raycast(transform.localPosition, dir, Mathf.Infinity, LayerMask.GetMask ("Player", "Wall"));
-				// Debug.DrawLine(transform.position, targetPosition);
-				Debug.DrawRay(transform.localPosition, dir);
 				if (hit) {
-					print(hit.collider.gameObject.name);
-					print(hit.collider.gameObject.tag);
-					print(hit.collider.gameObject.layer);
 					if (hit.collider.gameObject.layer == 11) {
-						float directionTarget = AngleBetweenVector2(transform.position, targetPosition);
-						if (_angle + 90 >= 180) {
-							_angle = 180 - _angle;
-						} else if (_angle - 90 <= -180) {
-							_angle = (180 - (180 - _angle));
-						}
-						if (directionTarget >= (_angle - 90) && directionTarget <= (_angle + 90)) {
-							print("devant");
-							_alerted = true;
-							_target = targetPosition;
-						} 
-						else {
-							hit = Physics2D.Raycast(transform.position, dir, 1.3f, LayerMask.GetMask ("Player", "Wall"));
-							print ("DERRIERE MOI ");
-							print(hit.distance);
-							if (hit) {
-								_alerted = true;
-								_target = targetPosition;
-							}
-						}
-					}
+						_alerted = true;
+						_target = playerPos;
+					} 
 				}
 			}
 		}
@@ -109,12 +87,12 @@ public class Enemy : MonoBehaviour {
 
 	// void OnTriggerEnter2D(Collider2D other) {
 	// 	if (other.gameObject.tag == "Player") {
-	// 		Vector2 targetPosition = other.gameObject.transform.position;
-	// 		RaycastHit2D hit = Physics2D.Raycast(transform.position, targetPosition, Mathf.Infinity, LayerMask.GetMask ("Player", "Wall"));
-	// 		Debug.DrawRay(transform.position, targetPosition);
+	// 		Vector2 playerPos = other.gameObject.transform.position;
+	// 		RaycastHit2D hit = Physics2D.Raycast(transform.position, playerPos, Mathf.Infinity, LayerMask.GetMask ("Player", "Wall"));
+	// 		Debug.DrawRay(transform.position, playerPos);
 	// 		if (hit) {
 	// 			if (hit.collider.gameObject.layer == 11) {
-	// 				float directionTarget = AngleBetweenVector2(transform.position, targetPosition);
+	// 				float directionTarget = AngleBetweenVector2(transform.position, playerPos);
 	// 				if (_angle + 90 >= 180) {
 	// 					_angle = 180 - _angle;
 	// 				} else if (_angle - 90 <= -180) {
@@ -122,18 +100,18 @@ public class Enemy : MonoBehaviour {
 	// 				}
 	// 				if (directionTarget >= (_angle - 90) && directionTarget <= (_angle + 90)) {
 	// 					_alerted = true;
-	// 					_target = targetPosition;
+	// 					_target = playerPos;
 	// 				}
 	// 			}
 	// 		}
 	// 	}
 	// }
 
-	private float AngleBetweenVector2(Vector2 vec1, Vector2 vec2) {
-		Vector2 difference = vec2 - vec1;
-		float sign = (vec2.y < vec1.y) ? -1.0f : 1.0f;
-		return Vector2.Angle(Vector2.right, difference) * sign;
-	}
+	// private float AngleBetweenVector2(Vector2 vec1, Vector2 vec2) {
+	// 	Vector2 difference = vec2 - vec1;
+	// 	float sign = (vec2.y < vec1.y) ? -1.0f : 1.0f;
+	// 	return Vector2.Angle(Vector2.right, difference) * sign;
+	// }
 
 	private void HandleDirection() {
 		Vector3 difference = _target - transform.position;
