@@ -33,21 +33,18 @@ public class Weapon : MonoBehaviour {
 		}
 	}
 
-	public void fire (Quaternion rotation, Vector3 localPosition) {
+	public void fire (Quaternion rotation, Transform parent) {
 		if (ammo != 0 && !coroutineFire) {
 			ammo--;
-			rotation *= Quaternion.Euler(0, 0, 90f);
-			shoot.transform.rotation = rotation;
-			shoot.transform.localPosition = localPosition;
-			Instantiate (shoot);
+			Instantiate (shoot,
+						parent.localPosition + shoot.transform.localPosition,
+						rotation);
 			coroutineFire = true;
-			StartCoroutine (waitForFire());
+			StartCoroutine (waitForFire ());
 		}
 	}
 
-	IEnumerator waitForFire() {
-
-		Debug.Log (speedFire);
+	IEnumerator waitForFire () {
 		yield return new WaitForSeconds (speedFire);
 		coroutineFire = false;
 	}

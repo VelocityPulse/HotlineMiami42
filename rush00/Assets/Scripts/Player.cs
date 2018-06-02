@@ -57,7 +57,7 @@ public class Player : MonoBehaviour {
 		}
 
 		if (Input.GetMouseButton(0) && weapon) {
-			weapon.fire (sprites.transform.rotation, transform.localPosition);
+			weapon.fire (sprites.transform.rotation, transform);
 		}
 
 		if (Input.GetMouseButtonDown(1) && weapon) {
@@ -121,4 +121,9 @@ public class Player : MonoBehaviour {
 		weapon = null;
 		weaponAttach.SetActive (false);
 	}
+
+	private void OnTriggerStay2D (Collider2D collision) {
+		transform.localRotation = new Quaternion (0, 0, 0, 0);
+	}
+
 }
