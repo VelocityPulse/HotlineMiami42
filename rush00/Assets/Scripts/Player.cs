@@ -60,6 +60,10 @@ public class Player : MonoBehaviour {
 			fire ();
 		}
 
+		if (Input.GetMouseButtonDown(1) && weapon) {
+			dropWeapon ();
+		}
+
 	}
 
 	void makeTranslateAndAnimation () {
@@ -80,7 +84,6 @@ public class Player : MonoBehaviour {
 		float rotation_z = Mathf.Atan2 (difference.y, difference.x) * Mathf.Rad2Deg;
 		sprites.transform.rotation = Quaternion.Euler (0f, 0f, rotation_z + 90);
 	}
-
 
 	// Update is called once per frame
 	void Update () {
@@ -106,15 +109,21 @@ public class Player : MonoBehaviour {
 		}
 	}
 
-	void fire() {
-		
-	}
-
 	void pickUpWeapon (GameObject w) {
 		weapon = w.GetComponent<Weapon> ();
 		weaponAttach.SetActive (true);
 		weaponAttach.GetComponent<SpriteRenderer> ().sprite = weapon.weaponAttach;
-		Destroy (w.gameObject);
+		weapon.gameObject.SetActive(false);
+	}
+
+	void dropWeapon() {
+		weapon.drop (sprites.transform.rotation, transform.localPosition);
+		weapon = null;
+		weaponAttach.SetActive (false);
+	}
+
+	void fire () {
+
 	}
 
 }
