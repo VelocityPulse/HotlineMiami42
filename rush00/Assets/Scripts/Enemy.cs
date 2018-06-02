@@ -37,11 +37,12 @@ public class Enemy : MonoBehaviour {
 				_checkpoint = _checkpoint.nextCheckpoint;
 			}
 			_target = _checkpoint.transform.position;			
-		} else {
+		} 
+		// else if (_alerted && _target == transform.position) {
+		// 	_target = new Vector3(Random.Range(transform.position.x -2, transform.position.x + 2), Random.Range(transform.position.y -2, transform.position.y + 2));
+		// }
 
-		}
-
-		transform.position = Vector3.MoveTowards(transform.position, _target, speed * Time.deltaTime);
+		// transform.position = Vector3.MoveTowards(transform.position, _target, speed * Time.deltaTime);
 		transform.rotation = Quaternion.Euler (0f, 0f, 0);
 
 	}
@@ -52,33 +53,64 @@ public class Enemy : MonoBehaviour {
 	void OnTriggerExit2D(Collider2D other) {
 		if (other.gameObject.tag == "Player") {
 			if (_alerted) {
-				print("EXIT");
-				StartCoroutine("StopFollowPlayer");
+				print("ARRETE");
+				_alerted = false;
+				// StartCoroutine("StopFollowPlayer");
 			}
 		}
 	}
 
 	void OnTriggerStay2D(Collider2D other) {
 		if (other.gameObject.tag == "Player") {
-			DetectPlayer(other);
+			// TODO passer les portes !
+
+			Vector2 targetPosition = other.gameObject.transform.position;
+			if (_alerted) {
+				_target = targetPosition;
+			} else {
+				print(transform.position + " " + targetPosition);
+				RaycastHit2D hit = Physics2D.Raycast(transform.position, targetPosition, Mathf.Infinity, LayerMask.GetMask ("Player", "Wall"));
+				if (hit) {
+					if (hit.collider.gameObject.layer == 11) {
+						float directionTarget = AngleBetweenVector2(transform.position, targetPosition);
+						if (_angle + 100 >= 180) {
+							_angle = 180 - _angle;
+						} else if (_angle - 100 <= -180) {
+							_angle = (180 - (180 - _angle));
+						}
+						// print("angle " + _angle);
+						// print("target " + directionTarget);
+						if (directionTarget >= (_angle - 100) && directionTarget <= (_angle + 100)) {
+							_alerted = true;
+							_target = targetPosition;
+						}
+					}
+					else {
+						print("hit pas ce que je veux'')");
+					}
+				} else {
+					print("HIT PAS ");
+				}
+			}
 		}
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
 		if (other.gameObject.tag == "Player") {
-			DetectPlayer(other);
-		}
-	}
-
-	private void DetectPlayer(Collider2D other) {
-		RaycastHit2D hit = Physics2D.Raycast(transform.position, other.gameObject.transform.position, Mathf.Infinity, LayerMask.GetMask ("Player", "Wall"));
-		if (hit) {
-			if (hit.collider.gameObject.tag == "Player") {
-				Vector2 targetPosition = other.gameObject.transform.position;
-				float directionTarget = AngleBetweenVector2(transform.position, targetPosition);
-				if (directionTarget >= (_angle - 90) && directionTarget <= (_angle + 90)) {
-					_alerted = true;
-					_target = targetPosition;
+			Vector2 targetPosition = other.gameObject.transform.position;
+			RaycastHit2D hit = Physics2D.Raycast(transform.position, targetPosition, Mathf.Infinity, LayerMask.GetMask ("Player", "Wall"));
+			if (hit) {
+				if (hit.collider.gameObject.layer == 11) {
+					float directionTarget = AngleBetweenVector2(transform.position, targetPosition);
+					if (_angle + 100 >= 180) {
+						_angle = 180 - _angle;
+					} else if (_angle - 100 <= -180) {
+						_angle = (180 - (180 - _angle));
+					}
+					if (directionTarget >= (_angle - 100) && directionTarget <= (_angle + 100)) {
+						_alerted = true;
+						_target = targetPosition;
+					}
 				}
 			}
 		}
