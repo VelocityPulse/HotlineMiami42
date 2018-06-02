@@ -192,7 +192,7 @@ MonoBehaviour:
   head: {fileID: 1884105825350694}
   body: {fileID: 1415657712294588}
   leg: {fileID: 1004442674780660}
-  speed: 1
+  speed: 5
 --- !u!212 &212208218020959462
 SpriteRenderer:
   m_ObjectHideFlags: 1
