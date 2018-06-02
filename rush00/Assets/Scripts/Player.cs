@@ -104,6 +104,9 @@ public class Player : MonoBehaviour {
 			target = hit.collider.gameObject;
 			if (target.tag == "Weapon" &&
 				Vector3.Distance (target.transform.localPosition, transform.localPosition) < 0.4) {
+				if (weapon) {
+					dropWeapon ();
+				}
 				pickUpWeapon (target);
 			}
 		}

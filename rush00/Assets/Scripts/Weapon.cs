@@ -59,7 +59,6 @@ public class Weapon : MonoBehaviour {
 	}
 
 	IEnumerator stopDropping (float toWait) {
-		coroutineFire = true;
 		yield return new WaitForSeconds (toWait);
 		coroutineDropping = false;
 	}
