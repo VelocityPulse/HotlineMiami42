@@ -61,28 +61,45 @@ public class Enemy : MonoBehaviour {
 	}
 
 	void OnTriggerStay2D(Collider2D other) {
+
 		if (other.gameObject.tag == "Player") {
 			// TODO passer les portes !
-
-			Vector2 targetPosition = other.gameObject.transform.position;
+			Vector3 targetPosition = other.gameObject.transform.position;
 			if (_alerted) {
 				_target = targetPosition;
+				// Debug.DrawLine(transform.position, targetPosition);
 			} else {
-				print(transform.position + " " + targetPosition);
-				RaycastHit2D hit = Physics2D.Raycast(transform.position, targetPosition, Mathf.Infinity, LayerMask.GetMask ("Player", "Wall"));
+				// print(targetPosition);
+
+				Vector3 dir = (targetPosition - transform.position).normalized;
+				print("debug" + dir);
+				RaycastHit2D hit = Physics2D.Raycast(transform.localPosition, dir, Mathf.Infinity, LayerMask.GetMask ("Player", "Wall"));
+				// Debug.DrawLine(transform.position, targetPosition);
+				Debug.DrawRay(transform.localPosition, dir);
 				if (hit) {
+					print(hit.collider.gameObject.name);
+					print(hit.collider.gameObject.tag);
+					print(hit.collider.gameObject.layer);
 					if (hit.collider.gameObject.layer == 11) {
 						float directionTarget = AngleBetweenVector2(transform.position, targetPosition);
-						if (_angle + 100 >= 180) {
+						if (_angle + 90 >= 180) {
 							_angle = 180 - _angle;
-						} else if (_angle - 100 <= -180) {
+						} else if (_angle - 90 <= -180) {
 							_angle = (180 - (180 - _angle));
 						}
-						// print("angle " + _angle);
-						// print("target " + directionTarget);
-						if (directionTarget >= (_angle - 100) && directionTarget <= (_angle + 100)) {
+						if (directionTarget >= (_angle - 90) && directionTarget <= (_angle + 90)) {
+							print("devant");
 							_alerted = true;
 							_target = targetPosition;
+						} 
+						else {
+							hit = Physics2D.Raycast(transform.position, dir, 1.3f, LayerMask.GetMask ("Player", "Wall"));
+							print ("DERRIERE MOI ");
+							print(hit.distance);
+							if (hit) {
+								_alerted = true;
+								_target = targetPosition;
+							}
 						}
 					}
 				}
@@ -90,26 +107,27 @@ public class Enemy : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerEnter2D(Collider2D other) {
-		if (other.gameObject.tag == "Player") {
-			Vector2 targetPosition = other.gameObject.transform.position;
-			RaycastHit2D hit = Physics2D.Raycast(transform.position, targetPosition, Mathf.Infinity, LayerMask.GetMask ("Player", "Wall"));
-			if (hit) {
-				if (hit.collider.gameObject.layer == 11) {
-					float directionTarget = AngleBetweenVector2(transform.position, targetPosition);
-					if (_angle + 100 >= 180) {
-						_angle = 180 - _angle;
-					} else if (_angle - 100 <= -180) {
-						_angle = (180 - (180 - _angle));
-					}
-					if (directionTarget >= (_angle - 100) && directionTarget <= (_angle + 100)) {
-						_alerted = true;
-						_target = targetPosition;
-					}
-				}
-			}
-		}
-	}
+	// void OnTriggerEnter2D(Collider2D other) {
+	// 	if (other.gameObject.tag == "Player") {
+	// 		Vector2 targetPosition = other.gameObject.transform.position;
+	// 		RaycastHit2D hit = Physics2D.Raycast(transform.position, targetPosition, Mathf.Infinity, LayerMask.GetMask ("Player", "Wall"));
+	// 		Debug.DrawRay(transform.position, targetPosition);
+	// 		if (hit) {
+	// 			if (hit.collider.gameObject.layer == 11) {
+	// 				float directionTarget = AngleBetweenVector2(transform.position, targetPosition);
+	// 				if (_angle + 90 >= 180) {
+	// 					_angle = 180 - _angle;
+	// 				} else if (_angle - 90 <= -180) {
+	// 					_angle = (180 - (180 - _angle));
+	// 				}
+	// 				if (directionTarget >= (_angle - 90) && directionTarget <= (_angle + 90)) {
+	// 					_alerted = true;
+	// 					_target = targetPosition;
+	// 				}
+	// 			}
+	// 		}
+	// 	}
+	// }
 
 	private float AngleBetweenVector2(Vector2 vec1, Vector2 vec2) {
 		Vector2 difference = vec2 - vec1;
