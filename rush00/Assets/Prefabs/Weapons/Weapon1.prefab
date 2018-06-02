@@ -36,7 +36,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1457600643690814}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.057188, y: -2.3115947, z: 0}
+  m_LocalPosition: {x: -0.11209011, y: 0.41866094, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -83,6 +83,7 @@ MonoBehaviour:
   shoot: {fileID: 1915268005821836, guid: b06a789b530e34bd4999740337879729, type: 2}
   speedFire: 0.2
   ammo: 30
+  spriteRenderer: {fileID: 0}
 --- !u!212 &212608053968700622
 SpriteRenderer:
   m_ObjectHideFlags: 1
