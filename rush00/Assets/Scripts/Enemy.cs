@@ -85,11 +85,6 @@ public class Enemy : MonoBehaviour {
 							_target = targetPosition;
 						}
 					}
-					else {
-						print("hit pas ce que je veux'')");
-					}
-				} else {
-					print("HIT PAS ");
 				}
 			}
 		}
