@@ -41,6 +41,7 @@ public class Weapon : MonoBehaviour {
 						 rotation);
 			if (!playerWeapon) {
 				newShoot.layer = LayerMask.NameToLayer ("ProjectileEnemy");
+				
 			} else {
 				newShoot.layer = LayerMask.NameToLayer ("ProjectilePlayer");
 			}
