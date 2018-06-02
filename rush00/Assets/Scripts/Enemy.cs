@@ -99,6 +99,7 @@ public class Enemy : MonoBehaviour {
 	}
 
 	void tryToFire() {
+		
 		fire ();
 	}
 
