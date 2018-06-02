@@ -114,7 +114,7 @@ public class Player : MonoBehaviour {
 
 	void pickUpWeapon (GameObject w) {
 		weapon = w.GetComponent<Weapon> ();
-		weapon.projectileTag = tag;
+		weapon.playerWeapon = true;
 		weaponAttach.SetActive (true);
 		weaponAttach.GetComponent<SpriteRenderer> ().sprite = weapon.weaponAttach;
 		weapon.spriteRenderer.enabled = false;

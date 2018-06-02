@@ -8,11 +8,10 @@ public class Weapon : MonoBehaviour {
 	public Sprite weapon;
 	public Sprite weaponAttach;
 	public GameObject shoot;
-	public string projectileTag = "Enemy";
 
 	public float speedFire;
 	public int ammo;
-	//public bool coldWeapon = false;
+	[HideInInspector] public bool playerWeapon;
 
 	[HideInInspector] public SpriteRenderer spriteRenderer;
 
@@ -40,11 +39,9 @@ public class Weapon : MonoBehaviour {
 			GameObject newShoot = Instantiate (shoot,
 						parent.localPosition + shoot.transform.localPosition,
 						 rotation);
-			if (projectileTag == "Enemy") {
-				newShoot.tag = projectileTag;
+			if (!playerWeapon) {
 				newShoot.layer = LayerMask.NameToLayer ("ProjectileEnemy");
 			} else {
-				newShoot.tag = projectileTag;
 				newShoot.layer = LayerMask.NameToLayer ("ProjectilePlayer");
 			}
 			coroutineFire = true;
