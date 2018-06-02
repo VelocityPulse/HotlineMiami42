@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour {
 	private bool _alerted;
 
 
-	[SerializeField] private Checkpoint _checkpoint;
+	[SerializeField] private Checkpoint _checkpoint = null;
 	[SerializeField] private float speed;
 	// [SerializeField] private Weapon _weapon;
 
@@ -49,7 +49,6 @@ public class Enemy : MonoBehaviour {
 	void OnTriggerExit2D (Collider2D other) {
 		if (other.gameObject.tag == "Player") {
 			if (_alerted) {
-				print ("ARRETE");
 				_alerted = false;
 				// StartCoroutine("StopFollowPlayer");
 			}

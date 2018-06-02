@@ -41,9 +41,10 @@ public class Weapon : MonoBehaviour {
 						 rotation);
 			if (!playerWeapon) {
 				newShoot.layer = LayerMask.NameToLayer ("ProjectileEnemy");
-				
+				newShoot.tag = "Enemy";
 			} else {
 				newShoot.layer = LayerMask.NameToLayer ("ProjectilePlayer");
+				newShoot.tag = "Player";
 			}
 			coroutineFire = true;
 			StartCoroutine (waitForFire ());
