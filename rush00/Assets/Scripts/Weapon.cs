@@ -11,6 +11,7 @@ public class Weapon : MonoBehaviour {
 
 	public float speedFire;
 	public int ammo;
+	public bool coldWeapon = false;
 
 
 	private bool coroutineRunning = false;
@@ -30,8 +31,11 @@ public class Weapon : MonoBehaviour {
 		}
 	}
 
-	void fire () {
+	public void fire (Quaternion rotation, Vector3 localPosition) {
+		if (ammo != 0) {
+			ammo--;
 
+		}
 	}
 
 	public void drop (Quaternion rotation, Vector3 localPosition) {

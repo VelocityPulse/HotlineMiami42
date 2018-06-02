@@ -83,6 +83,7 @@ MonoBehaviour:
   shoot: {fileID: 21300000, guid: 8010373ff752c4a4b8a10ad4166b8ed7, type: 3}
   speedFire: 5
   ammo: 15
+  coldWeapon: 0
 --- !u!212 &212527967406741922
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -114,8 +115,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 2109859661
-  m_SortingLayer: 0
+  m_SortingLayerID: -615308695
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b3a7603c6d0094fde9abd4be77961bde, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

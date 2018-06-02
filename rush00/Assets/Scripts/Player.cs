@@ -57,7 +57,7 @@ public class Player : MonoBehaviour {
 		}
 
 		if (Input.GetMouseButtonDown (0) && weapon) {
-			fire ();
+			weapon.fire ();
 		}
 
 		if (Input.GetMouseButtonDown(1) && weapon) {
@@ -121,9 +121,4 @@ public class Player : MonoBehaviour {
 		weapon = null;
 		weaponAttach.SetActive (false);
 	}
-
-	void fire () {
-
-	}
-
 }
