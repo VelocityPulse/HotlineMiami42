@@ -6,6 +6,7 @@ public class Weapon : MonoBehaviour {
 
 	public Sprite weapon;
 	public Sprite weaponAttach;
+	public Sprite shoot;
 
 	public float speedFire;
 	public int ammo;

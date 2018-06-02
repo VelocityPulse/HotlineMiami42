@@ -1,8 +1,9 @@
 ﻿<Properties StartupConfiguration="{2F2AED00-1F09-3DE2-A592-6A346252E3D3}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Weapon.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/RandomWeapon.cs">
     <Files>
       <File FileName="Assets/Scripts/Player.cs" Line="13" Column="2" />
-      <File FileName="Assets/Scripts/Weapon.cs" Line="5" Column="1" />
+      <File FileName="Assets/Scripts/Weapon.cs" Line="9" Column="22" />
+      <File FileName="Assets/Scripts/RandomWeapon.cs" Line="7" Column="14" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
