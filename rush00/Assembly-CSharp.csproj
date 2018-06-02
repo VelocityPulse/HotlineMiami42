@@ -54,6 +54,8 @@
      <Compile Include="Assets\Scripts\Checkpoint.cs" />
      <Compile Include="Assets\Scripts\Enemy.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
+     <Compile Include="Assets\Scripts\RandomWeapon.cs" />
+     <Compile Include="Assets\Scripts\Weapon.cs" />
      <None Include="Assets\Fonts\friday13\Font License.txt" />
      <None Include="Assets\Fonts\d3digitalism\Read Me.txt" />
      <None Include="Assets\Fonts\shoguns_clan\README.txt" />
