@@ -81,7 +81,7 @@ MonoBehaviour:
   weapon: {fileID: 21300000, guid: f47402979bf234b2d8a7c4f680d637d0, type: 3}
   weaponAttach: {fileID: 21300000, guid: 6a80894c63238427280b822e403bcc63, type: 3}
   shoot: {fileID: 1702077384596420, guid: 0d212b18bfb6b449caa3fbeb2566b326, type: 2}
-  speedFire: 10
+  speedFire: 1
   ammo: -1
   coldWeapon: 1
 --- !u!212 &212725099205141278

@@ -11,20 +11,22 @@ public class Weapon : MonoBehaviour {
 
 	public float speedFire;
 	public int ammo;
-	public bool coldWeapon = false;
+	//public bool coldWeapon = false;
 
+	[HideInInspector] public SpriteRenderer spriteRenderer;
 
-	private bool coroutineRunning = false;
+	private bool coroutineDropping = false;
+	private bool coroutineFire = false;
 
 	// Use this for initialization
 	void Start () {
-
+		spriteRenderer = GetComponent<SpriteRenderer> ();
 	}
 
 	// Update is called once per frame
 	void Update () {
 
-		if (coroutineRunning) {
+		if (coroutineDropping) {
 			transform.Translate (Vector3.up * 15 * Time.deltaTime * -1);
 			//transform.Rotate (Vector3.forward * 20);
 			//transform.rotation = Quaternion.Euler (0f, 0f, 2000 * Time.deltaTime);
@@ -32,27 +34,36 @@ public class Weapon : MonoBehaviour {
 	}
 
 	public void fire (Quaternion rotation, Vector3 localPosition) {
-		if (ammo != 0) {
+		if (ammo != 0 && !coroutineFire) {
 			ammo--;
-
-
-
-
+			rotation *= Quaternion.Euler(0, 0, 90f);
+			shoot.transform.rotation = rotation;
+			shoot.transform.localPosition = localPosition;
+			Instantiate (shoot);
+			coroutineFire = true;
+			StartCoroutine (waitForFire());
 		}
+	}
+
+	IEnumerator waitForFire() {
+
+		Debug.Log (speedFire);
+		yield return new WaitForSeconds (speedFire);
+		coroutineFire = false;
 	}
 
 	public void drop (Quaternion rotation, Vector3 localPosition) {
 		transform.localScale = new Vector3 (1, -1, 1);
 		transform.rotation = rotation;
 		transform.localPosition = localPosition;
-		gameObject.SetActive (true);
-		coroutineRunning = true;
+		spriteRenderer.enabled = true;
+		coroutineDropping = true;
 		StartCoroutine (stopDropping (0.15f));
 	}
 
 	IEnumerator stopDropping (float toWait) {
-
+		coroutineFire = true;
 		yield return new WaitForSeconds (toWait);
-		coroutineRunning = false;
+		coroutineDropping = false;
 	}
 }

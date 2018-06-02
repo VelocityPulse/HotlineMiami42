@@ -56,7 +56,7 @@ public class Player : MonoBehaviour {
 			tryPickUpWeapon ();
 		}
 
-		if (Input.GetMouseButtonDown (0) && weapon) {
+		if (Input.GetMouseButton(0) && weapon) {
 			weapon.fire (sprites.transform.rotation, transform.localPosition);
 		}
 
@@ -113,7 +113,7 @@ public class Player : MonoBehaviour {
 		weapon = w.GetComponent<Weapon> ();
 		weaponAttach.SetActive (true);
 		weaponAttach.GetComponent<SpriteRenderer> ().sprite = weapon.weaponAttach;
-		weapon.gameObject.SetActive(false);
+		weapon.spriteRenderer.enabled = false;
 	}
 
 	void dropWeapon() {
