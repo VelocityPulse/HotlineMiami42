@@ -28,12 +28,19 @@ public class Projectile : MonoBehaviour {
 	}
 
 	private void OnCollisionEnter2D (Collision2D collision) {
-		if (collision.gameObject.layer == LayerMask.GetMask("Wall")) {
+		Debug.Log ("COLLISION");
+		if (collision.gameObject.layer == LayerMask.GetMask ("Wall")) {
 			Destroy (gameObject);
 		}
 
-		if (collision.gameObject.layer == LayerMask.GetMask("Ennemy")) {
+		Debug.Log (tag);
+		Debug.Log (collision.collider.gameObject.layer);
+		Debug.Log (LayerMask.GetMask ("Ennemy"));
+
+		if (tag == "Player" && collision.gameObject.layer == LayerMask.NameToLayer ("Ennemy")) {
 			Destroy (collision.gameObject);
-		} 
+		} else if (tag == "Ennemy" && collision.gameObject.layer == LayerMask.NameToLayer ("Player")) {
+			collision.gameObject.GetComponent<Player> ().die ();
+		}
 	}
 }

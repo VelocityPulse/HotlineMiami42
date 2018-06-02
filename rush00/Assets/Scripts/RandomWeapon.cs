@@ -11,12 +11,12 @@ public class RandomWeapon : MonoBehaviour {
 		int randomValue = Random.Range (0, weaponPrefabs.Count);
 
 		weaponPrefabs [randomValue].transform.localPosition = transform.localPosition;
-		Instantiate (weaponPrefabs [randomValue]).tag = "Player";
-
+		GameObject newWeapon = Instantiate (weaponPrefabs [randomValue]);
+		newWeapon.GetComponent<Weapon> ().projectileTag = "Player";
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
-		
+
 	}
 }

@@ -37,9 +37,16 @@ public class Weapon : MonoBehaviour {
 	public void fire (Quaternion rotation, Transform parent) {
 		if (ammo != 0 && !coroutineFire) {
 			ammo--;
-			Instantiate (shoot,
+			GameObject newShoot = Instantiate (shoot,
 						parent.localPosition + shoot.transform.localPosition,
-			             rotation).tag = projectileTag;
+						 rotation);
+			if (projectileTag == "Enemy") {
+				newShoot.tag = projectileTag;
+				newShoot.layer = LayerMask.NameToLayer ("ProjectileEnemy");
+			} else {
+				newShoot.tag = projectileTag;
+				newShoot.layer = LayerMask.NameToLayer ("ProjectilePlayer");
+			}
 			coroutineFire = true;
 			StartCoroutine (waitForFire ());
 		}

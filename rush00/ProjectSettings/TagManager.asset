@@ -20,8 +20,8 @@ TagManager:
   - Wall
   - Ennemy
   - Player
-  - 
-  - 
+  - ProjectileEnemy
+  - ProjectilePlayer
   - 
   - 
   - 
