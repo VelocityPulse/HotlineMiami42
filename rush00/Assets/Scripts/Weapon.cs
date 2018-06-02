@@ -7,7 +7,7 @@ public class Weapon : MonoBehaviour {
 
 	public Sprite weapon;
 	public Sprite weaponAttach;
-	public Sprite shoot;
+	public GameObject shoot;
 
 	public float speedFire;
 	public int ammo;
@@ -34,6 +34,9 @@ public class Weapon : MonoBehaviour {
 	public void fire (Quaternion rotation, Vector3 localPosition) {
 		if (ammo != 0) {
 			ammo--;
+
+
+
 
 		}
 	}

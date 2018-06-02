@@ -57,7 +57,7 @@ public class Player : MonoBehaviour {
 		}
 
 		if (Input.GetMouseButtonDown (0) && weapon) {
-			weapon.fire ();
+			weapon.fire (sprites.transform.rotation, transform.localPosition);
 		}
 
 		if (Input.GetMouseButtonDown(1) && weapon) {

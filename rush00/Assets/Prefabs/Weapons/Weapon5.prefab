@@ -58,7 +58,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.75, y: 0.5}
+    oldSize: {x: 1.125, y: 0.40625}
     newSize: {x: 0.75, y: 0.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -80,9 +80,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon: {fileID: 21300000, guid: f47402979bf234b2d8a7c4f680d637d0, type: 3}
   weaponAttach: {fileID: 21300000, guid: 6a80894c63238427280b822e403bcc63, type: 3}
-  shoot: {fileID: 21300000, guid: f1ca17da23b794eb48e841207ed79302, type: 3}
+  shoot: {fileID: 1702077384596420, guid: 0d212b18bfb6b449caa3fbeb2566b326, type: 2}
   speedFire: 10
-  ammo: 30
+  ammo: -1
   coldWeapon: 1
 --- !u!212 &212725099205141278
 SpriteRenderer:
@@ -118,7 +118,7 @@ SpriteRenderer:
   m_SortingLayerID: -615308695
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 3a582ad63bf63437ca436507f3c5fbe8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f47402979bf234b2d8a7c4f680d637d0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
