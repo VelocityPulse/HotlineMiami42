@@ -11,7 +11,7 @@ public class RandomWeapon : MonoBehaviour {
 		int randomValue = Random.Range (0, weaponPrefabs.Count);
 
 		weaponPrefabs [randomValue].transform.localPosition = transform.localPosition;
-		Instantiate (weaponPrefabs [randomValue]);
+		Instantiate (weaponPrefabs [randomValue]).tag = "Player";
 
 	}
 	

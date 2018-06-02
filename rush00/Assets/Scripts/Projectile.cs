@@ -26,4 +26,14 @@ public class Projectile : MonoBehaviour {
 		yield return new WaitForSeconds (timer);
 		Destroy (gameObject);
 	}
+
+	private void OnCollisionEnter2D (Collision2D collision) {
+		if (collision.gameObject.layer == LayerMask.GetMask("Wall")) {
+			Destroy (gameObject);
+		}
+
+		if (collision.gameObject.layer == LayerMask.GetMask("Ennemy")) {
+			Destroy (collision.gameObject);
+		} 
+	}
 }

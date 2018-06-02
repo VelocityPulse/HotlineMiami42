@@ -8,6 +8,7 @@ public class Weapon : MonoBehaviour {
 	public Sprite weapon;
 	public Sprite weaponAttach;
 	public GameObject shoot;
+	public string projectileTag = "Enemy";
 
 	public float speedFire;
 	public int ammo;
@@ -38,7 +39,7 @@ public class Weapon : MonoBehaviour {
 			ammo--;
 			Instantiate (shoot,
 						parent.localPosition + shoot.transform.localPosition,
-						rotation);
+			             rotation).tag = projectileTag;
 			coroutineFire = true;
 			StartCoroutine (waitForFire ());
 		}
