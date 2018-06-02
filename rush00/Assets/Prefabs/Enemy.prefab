@@ -117,7 +117,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1051794181952586}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.067, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4884709499883690}
@@ -156,7 +156,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1387030279096586}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1, y: -2.5, z: 0}
+  m_LocalPosition: {x: 1, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4884709499883690}
@@ -187,7 +187,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1678596248164588}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.169, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4884709499883690}
@@ -299,8 +299,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _checkpoint: {fileID: 0}
   speed: 1
+  weaponPrefabs:
+  - {fileID: 1457600643690814, guid: bd262ac33b2454fdabe2d6bc3402f62f, type: 2}
+  - {fileID: 1318389501165732, guid: 4d80fb3c1b26648238a52cf388af3db7, type: 2}
+  - {fileID: 1652529228068820, guid: eda0646ddffe04d14b1a64caf1887b51, type: 2}
+  - {fileID: 1751683516622642, guid: 2e027eb09d93341c98a061c71e232402, type: 2}
+  - {fileID: 1290683885820246, guid: 52dc9508c93504d5793ceda72d887260, type: 2}
   sprites: {fileID: 1550678675763292}
-  leg: {fileID: 0}
+  head: {fileID: 1051794181952586}
+  weaponAttach: {fileID: 1159079524464020}
+  body: {fileID: 1029529814840764}
+  leg: {fileID: 1678596248164588}
   moving: 1
 --- !u!212 &212122347466321554
 SpriteRenderer:
