@@ -33,23 +33,38 @@ public class Enemy : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other) {
 		// print(other.gameObject.name);
-		// if (other.gameObject.tag == "Player") {
-			// print(transform.position + " " + other.gameObject.transform.position + " " + Vector2.right);
-// Debug.DrawRay(other.gameObject.transform.position, transform.position);
-			// RaycastHit2D hit = Physics2D.Raycast(transform.position, );
-			print(other.gameObject.layer);
-			RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, other.gameObject.transform.position);
-			// RaycastHit2D[] hits = Physics2D.RaycastAll(other.gameObject.transform.position, transform.position);
-			foreach (RaycastHit2D hit in hits) {
+		if (other.gameObject.tag == "Player") {
+
+			RaycastHit2D hit = Physics2D.Raycast(transform.position, other.gameObject.transform.position, Mathf.Infinity, 9);
+			if (hit) {
 				print(hit.collider.gameObject.name);
 			}
+
+			hit = Physics2D.Raycast(transform.position, other.gameObject.transform.position, Mathf.Infinity, 8);
+			if (hit) {
+				print(hit.collider.gameObject.name);
+			}
+
+			hit = Physics2D.Raycast(transform.position, other.gameObject.transform.position, Mathf.Infinity, 10);
+			if (hit) {
+				print(hit.collider.gameObject.name);
+			}
+
+			// print(transform.position + " " + other.gameObject.transform.position + " " + Vector2.right);
+// Debug.DrawRay(other.gameObject.transform.position, transform.position);
+			// print(other.gameObject.layer);
+			// RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, other.gameObject.transform.position, Mathf.Infinity, 9);
+			// RaycastHit2D[] hits = Physics2D.RaycastAll(other.gameObject.transform.position, transform.position);
+			// foreach (RaycastHit2D hit in hits) {
+			// 	print(hit.collider.gameObject.name);
+			// }
 			// if (hit) {
 			// 	if (hit.collider.gameObject.tag == "Enemy") {
 			// 		_mousePosition = other.gameObject.transform.position;
 			// 	}
 			// 	print(hit.collider.gameObject.name);
 			// }
-		// }
+		}
 		// Vector3 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
 
