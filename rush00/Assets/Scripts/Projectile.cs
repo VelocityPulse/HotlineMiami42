@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Checkpoint : MonoBehaviour {
+public class Projectile : MonoBehaviour {
 
-	public Checkpoint nextCheckpoint;
+	// Use this for initialization
 	void Start () {
 		
 	}
 	
+	// Update is called once per frame
 	void Update () {
-
+		
 	}
 }

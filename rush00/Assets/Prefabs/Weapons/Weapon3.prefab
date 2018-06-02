@@ -36,7 +36,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1652529228068820}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.057188, y: -2.3115947, z: 0}
+  m_LocalPosition: {x: -6.054954, y: -0.64616907, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -80,9 +80,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon: {fileID: 21300000, guid: b3a7603c6d0094fde9abd4be77961bde, type: 3}
   weaponAttach: {fileID: 21300000, guid: 998863868c48d4acb8825638c9fe303c, type: 3}
-  shoot: {fileID: 21300000, guid: 8010373ff752c4a4b8a10ad4166b8ed7, type: 3}
+  shoot: {fileID: 1344662016118770, guid: e50d546491a914a2fafa72e0832a93a1, type: 2}
   speedFire: 5
   ammo: 15
+  coldWeapon: 0
 --- !u!212 &212527967406741922
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -114,8 +115,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 2109859661
-  m_SortingLayer: 0
+  m_SortingLayerID: -615308695
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b3a7603c6d0094fde9abd4be77961bde, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

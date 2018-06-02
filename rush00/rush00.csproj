@@ -307,6 +307,7 @@
     <Compile Include="Assets\Scripts\Checkpoint.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\Projectile.cs" />
     <Compile Include="Assets\Scripts\RandomWeapon.cs" />
     <Compile Include="Assets\Scripts\Weapon.cs" />
   </ItemGroup>
