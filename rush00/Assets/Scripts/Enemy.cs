@@ -38,9 +38,12 @@ public class Enemy : MonoBehaviour {
 	void FixedUpdate () {
 		HandleDirection ();
 		if (_alerted) {
-			tryToFire ();
+			// tryToFire ();
 		}
-
+// if (Input.GetMouseButtonDown(0)) {
+// 				_target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+// 				_target.z = transform.position.z;
+// }
 
 		if (!_alerted && _checkpoint != null) {
 			if (_target == transform.position) {

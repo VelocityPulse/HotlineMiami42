@@ -67,6 +67,8 @@ public class Player : MonoBehaviour {
 	}
 
 	void makeTranslateAndAnimation () {
+		// transform.position = Vector3.MoveTowards (transform.position, new Vector2(direction.x, direction.y), speed * Time.deltaTime);
+
 		transform.Translate (new Vector3 (direction.x, direction.y, 0)
 							 * Time.deltaTime
 							 * speed);

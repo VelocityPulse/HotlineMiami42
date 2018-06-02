@@ -156,7 +156,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1387030279096586}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 1, z: 0}
+  m_LocalPosition: {x: -2, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4884709499883690}
@@ -237,13 +237,14 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0, y: 1}
-      - {x: -3.9734778, y: 0.3397534}
-      - {x: -3.5003376, y: -2.598157}
-      - {x: -1.7568812, y: -5.920333}
-      - {x: 1.6757824, y: -5.8956547}
-      - {x: 3.4010859, y: -2.5388346}
-      - {x: 3.7852619, y: 0.38031745}
+    - - {x: 0.011290789, y: 1.8693982}
+      - {x: -3.497912, y: 0.28333044}
+      - {x: -5.0157, y: -1.5019369}
+      - {x: -3.9929419, y: -7.4883027}
+      - {x: 0.008111119, y: -10.510477}
+      - {x: 3.9800148, y: -7.4772587}
+      - {x: 5.066554, y: -1.484642}
+      - {x: 3.5433233, y: 0.30934167}
 --- !u!61 &61852071944526034
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -298,7 +299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _checkpoint: {fileID: 0}
-  speed: 1
+  speed: 3
   weaponPrefabs:
   - {fileID: 1457600643690814, guid: bd262ac33b2454fdabe2d6bc3402f62f, type: 2}
   - {fileID: 1318389501165732, guid: 4d80fb3c1b26648238a52cf388af3db7, type: 2}
