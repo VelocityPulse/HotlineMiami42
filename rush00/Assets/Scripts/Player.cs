@@ -56,11 +56,11 @@ public class Player : MonoBehaviour {
 			tryPickUpWeapon ();
 		}
 
-		if (Input.GetMouseButton(0) && weapon) {
+		if (Input.GetMouseButton (0) && weapon) {
 			weapon.fire (sprites.transform.rotation, transform);
 		}
 
-		if (Input.GetMouseButtonDown(1) && weapon) {
+		if (Input.GetMouseButtonDown (1) && weapon) {
 			dropWeapon ();
 		}
 
@@ -114,12 +114,13 @@ public class Player : MonoBehaviour {
 
 	void pickUpWeapon (GameObject w) {
 		weapon = w.GetComponent<Weapon> ();
+		weapon.playerWeapon = true;
 		weaponAttach.SetActive (true);
 		weaponAttach.GetComponent<SpriteRenderer> ().sprite = weapon.weaponAttach;
 		weapon.spriteRenderer.enabled = false;
 	}
 
-	void dropWeapon() {
+	void dropWeapon () {
 		weapon.drop (sprites.transform.rotation, transform.localPosition);
 		weapon = null;
 		weaponAttach.SetActive (false);
@@ -127,6 +128,10 @@ public class Player : MonoBehaviour {
 
 	private void OnTriggerStay2D (Collider2D collision) {
 		transform.localRotation = new Quaternion (0, 0, 0, 0);
+	}
+
+	public void die () {
+
 	}
 
 }

@@ -11,7 +11,7 @@ public class Weapon : MonoBehaviour {
 
 	public float speedFire;
 	public int ammo;
-	//public bool coldWeapon = false;
+	[HideInInspector] public bool playerWeapon;
 
 	[HideInInspector] public SpriteRenderer spriteRenderer;
 
@@ -36,9 +36,14 @@ public class Weapon : MonoBehaviour {
 	public void fire (Quaternion rotation, Transform parent) {
 		if (ammo != 0 && !coroutineFire) {
 			ammo--;
-			Instantiate (shoot,
+			GameObject newShoot = Instantiate (shoot,
 						parent.localPosition + shoot.transform.localPosition,
-						rotation);
+						 rotation);
+			if (!playerWeapon) {
+				newShoot.layer = LayerMask.NameToLayer ("ProjectileEnemy");
+			} else {
+				newShoot.layer = LayerMask.NameToLayer ("ProjectilePlayer");
+			}
 			coroutineFire = true;
 			StartCoroutine (waitForFire ());
 		}
