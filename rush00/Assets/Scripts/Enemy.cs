@@ -13,7 +13,6 @@ public class Enemy : MonoBehaviour {
 	void Start () {
 		_mousePosition = transform.position;
 		speed = 5;
-
 	}
 	
 	void FixedUpdate () {
@@ -22,15 +21,37 @@ public class Enemy : MonoBehaviour {
 			_mousePosition.z = transform.position.z;
 		}
 		transform.position = Vector3.MoveTowards(transform.position, _mousePosition, speed * Time.deltaTime);
+
 	}
 
 	void OnCollisionEnter2D(Collision2D other) {
 	}
 
+	void OnTriggerStay2D(Collider2D other) {
+		
+	}
+
 	void OnTriggerEnter2D(Collider2D other) {
-		if (other.gameObject.tag == "Player") {
-			_mousePosition = other.gameObject.transform.position;
-			print("PLAYER");
-		}
+		// print(other.gameObject.name);
+		// if (other.gameObject.tag == "Player") {
+			// print(transform.position + " " + other.gameObject.transform.position + " " + Vector2.right);
+// Debug.DrawRay(other.gameObject.transform.position, transform.position);
+			// RaycastHit2D hit = Physics2D.Raycast(transform.position, );
+			print(other.gameObject.layer);
+			RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, other.gameObject.transform.position);
+			// RaycastHit2D[] hits = Physics2D.RaycastAll(other.gameObject.transform.position, transform.position);
+			foreach (RaycastHit2D hit in hits) {
+				print(hit.collider.gameObject.name);
+			}
+			// if (hit) {
+			// 	if (hit.collider.gameObject.tag == "Enemy") {
+			// 		_mousePosition = other.gameObject.transform.position;
+			// 	}
+			// 	print(hit.collider.gameObject.name);
+			// }
+		// }
+		// Vector3 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+
 	}
 }
