@@ -113,6 +113,7 @@ public class Enemy : MonoBehaviour {
 		if (other.gameObject.tag == "Player") {
 			if (_alerted) {
 				StartCoroutine ("StopFollowPlayer");
+				_search = true;
 			}
 		}
 	}
@@ -157,6 +158,7 @@ public class Enemy : MonoBehaviour {
 		yield return new WaitForSeconds (10);
 		_alerted = false;
 		_search = false;
+		_checkpoint = _room.getRandomCheckPoint ();
 	}
 
 	void Fire () {
