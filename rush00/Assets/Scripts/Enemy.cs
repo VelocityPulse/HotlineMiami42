@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour {
 	public GameObject body;
 	public GameObject leg;
 
-	public AudioClip dieSong;
+	public List<AudioClip> dieSong = new List<AudioClip> ();
 
 	private Animator legAnimator;
 
@@ -181,10 +181,10 @@ public class Enemy : MonoBehaviour {
 		// Door newDoor = _room.OtherDoor(_targetObject.GetComponent<Door>());
 	}
 
-	public void die() {
+	public void die () {
 		if (Player.p) {
-			Player.p.audioSource.PlayOneShot (dieSong);
+			Player.p.audioSource.PlayOneShot (dieSong[Random.Range(0, dieSong.Count)]);
 		}
+		Destroy (gameObject);
 	}
-
 }

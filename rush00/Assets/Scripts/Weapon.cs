@@ -9,6 +9,7 @@ public class Weapon : MonoBehaviour {
 	public Sprite weapon;
 	public Sprite weaponAttach;
 	public AudioClip audioClip;
+	public AudioClip pickUpSong;
 	public GameObject shoot;
 
 	public float speedFire;

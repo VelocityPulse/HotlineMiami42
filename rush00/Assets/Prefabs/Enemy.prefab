@@ -156,7 +156,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1387030279096586}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2, y: -0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4884709499883690}
@@ -300,18 +300,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _checkpoint: {fileID: 0}
   speed: 3
+  _room: {fileID: 0}
   weaponPrefabs:
   - {fileID: 1457600643690814, guid: bd262ac33b2454fdabe2d6bc3402f62f, type: 2}
   - {fileID: 1318389501165732, guid: 4d80fb3c1b26648238a52cf388af3db7, type: 2}
   - {fileID: 1652529228068820, guid: eda0646ddffe04d14b1a64caf1887b51, type: 2}
   - {fileID: 1751683516622642, guid: 2e027eb09d93341c98a061c71e232402, type: 2}
   - {fileID: 1290683885820246, guid: 52dc9508c93504d5793ceda72d887260, type: 2}
+  - {fileID: 1457075506177970, guid: 46f97d9db9f664f73ba2a9a7c54bbf50, type: 2}
+  - {fileID: 1542888316472486, guid: 98ac00cfdd0c2449e8b234f3bf4c42ed, type: 2}
+  - {fileID: 1023962563239868, guid: f6af5e9e4b89441d8bb75d9451c92a7b, type: 2}
+  - {fileID: 1945693176400970, guid: 39472a08e27e64ffbafd065235ae775a, type: 2}
   sprites: {fileID: 1550678675763292}
   head: {fileID: 1051794181952586}
   weaponAttach: {fileID: 1159079524464020}
   body: {fileID: 1029529814840764}
   leg: {fileID: 1678596248164588}
-  moving: 1
+  dieSong:
+  - {fileID: 8300000, guid: ee5d9085bdea946249671138763e1bf7, type: 3}
+  - {fileID: 8300000, guid: 8aed53bbcb68b4702a6d7e2e06ddf294, type: 3}
+  - {fileID: 8300000, guid: c7ecc4a937cca491da8741b12f4522b3, type: 3}
+  - {fileID: 8300000, guid: 61f34fee662fe406994204e8723ee10c, type: 3}
 --- !u!212 &212122347466321554
 SpriteRenderer:
   m_ObjectHideFlags: 1
