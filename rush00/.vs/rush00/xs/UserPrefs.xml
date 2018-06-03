@@ -1,9 +1,9 @@
 ﻿<Properties StartupConfiguration="{2F2AED00-1F09-3DE2-A592-6A346252E3D3}|">
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Weapon.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Player.cs">
     <Files>
-      <File FileName="Assets/Scripts/Player.cs" Line="5" Column="18" />
-      <File FileName="Assets/Scripts/Weapon.cs" Line="42" Column="19" />
+      <File FileName="Assets/Scripts/Player.cs" Line="35" Column="1" />
+      <File FileName="Assets/Scripts/Weapon.cs" Line="60" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
