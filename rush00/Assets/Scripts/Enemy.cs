@@ -61,7 +61,7 @@ public class Enemy : MonoBehaviour {
 				_checkpoint = _checkpoint.nextCheckpoint;
 			}
 			_targetObject = _checkpoint.gameObject;
-		} else if (Vector3.Distance(_target, transform.position) < 0.05) {
+		} else if (_alerted && Vector3.Distance(_target, transform.position) < 0.05) {
 			DoorGestion();
 		}
 
@@ -121,7 +121,7 @@ public class Enemy : MonoBehaviour {
 	}
 
 	private IEnumerator StopFollowPlayer () {
-		yield return new WaitForSeconds(15);
+		yield return new WaitForSeconds(5);
 		print("FIN COROUTINE");
 		_alerted = false;
 		_search = false;
@@ -132,13 +132,14 @@ public class Enemy : MonoBehaviour {
 	}
 
 	private void DoorGestion() {
-		if (_room.name == _targetObject.GetComponent<Door>().room1.name) {
-				_room = _targetObject.GetComponent<Door>().room2;
-			} else {
-				_room = _targetObject.GetComponent<Door>().room1;
+		if (_targetObject != null) {
+			if (_room.name == _targetObject.GetComponent<Door>().room1.name) {
+					_room = _targetObject.GetComponent<Door>().room2;
+				} else {
+					_room = _targetObject.GetComponent<Door>().room1;
 			}
-
 			_targetObject = _room.OtherDoor(_targetObject.GetComponent<Door>()).gameObject;
+		}
 
 			// CAS CUL DE SAC A GERER SAC A MERDE
 			// Door newDoor = _room.OtherDoor(_targetObject.GetComponent<Door>());
