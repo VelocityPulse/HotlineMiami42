@@ -45,11 +45,8 @@ public class Enemy : MonoBehaviour {
 		}
 
 		int randomValue = Random.Range (0, weaponPrefabs.Count);
-		//weaponPrefabs [randomValue].transform.position = Vector3.zero;
 
 		weapon = Instantiate (weaponPrefabs [randomValue], transform).GetComponent<Weapon>();
-		//weapon.transform.localPosition = transform.localPosition;
-		//weapon.transform.position = transform.position;
 		weapon.GetComponent<Rigidbody2D> ().simulated = false;
 		weapon.GetComponent<SpriteRenderer> ().enabled = false;
 		weapon.playerWeapon = false;
@@ -66,7 +63,7 @@ public class Enemy : MonoBehaviour {
 			_target = transform.position;
 		}
 		if (_alerted && !_search) {
-			legAnimator.Play ("legAnimation");
+			legAnimator.Play ("legMoving");
 			Fire ();
 		}
 
@@ -114,11 +111,11 @@ public class Enemy : MonoBehaviour {
 			RaycastHit2D hit = Physics2D.Raycast (transform.position, dir, Mathf.Infinity, LayerMask.GetMask ("Player", "Wall"));
 			//Debug.DrawLine (transform.position, dir);
 			if (hit) {
-				Debug.Log ("COLLID :" + hit.collider.gameObject.layer);
-				Debug.Log ("LAYER :" + LayerMask.NameToLayer ("Player"));
-				Debug.Log ("MASK :" + LayerMask.GetMask ("Player"));
+				//Debug.Log ("COLLID :" + hit.collider.gameObject.layer);
+				//Debug.Log ("LAYER :" + LayerMask.NameToLayer ("Player"));
+				//Debug.Log ("MASK :" + LayerMask.GetMask ("Player"));
 				if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Player")) {
-					Debug.Log ("1");
+					//Debug.Log ("1");
 					_alerted = true;
 					_search = false;
 					// _targetObject = other.gameObject;
@@ -126,7 +123,7 @@ public class Enemy : MonoBehaviour {
 					_target = playerPos;
 				}
 				else if (_search && hit.collider.gameObject.layer == LayerMask.NameToLayer("Wall")) {
-					Debug.Log ("2");
+					//Debug.Log ("2");
 					_alerted = true;
 					_search = true;
 					// print(Vector3.Distance(_target, transform.position));
@@ -156,7 +153,7 @@ public class Enemy : MonoBehaviour {
 
 	private IEnumerator StopFollowPlayer () {
 		yield return new WaitForSeconds(5);
-		print("FIN COROUTINE");
+		//print("FIN COROUTINE");
 		_alerted = false;
 		_search = false;
 	}
