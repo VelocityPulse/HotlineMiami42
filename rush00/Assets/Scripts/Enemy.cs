@@ -45,8 +45,12 @@ public class Enemy : MonoBehaviour {
 		}
 
 		int randomValue = Random.Range (0, weaponPrefabs.Count);
-		weaponPrefabs [randomValue].transform.localPosition = transform.localPosition;
-		weapon = Instantiate (weaponPrefabs [randomValue]).GetComponent<Weapon>();
+		//weaponPrefabs [randomValue].transform.position = Vector3.zero;
+
+		weapon = Instantiate (weaponPrefabs [randomValue], transform).GetComponent<Weapon>();
+		//weapon.transform.localPosition = transform.localPosition;
+		//weapon.transform.position = transform.position;
+		weapon.GetComponent<Rigidbody2D> ().simulated = false;
 		weapon.GetComponent<SpriteRenderer> ().enabled = false;
 		weapon.playerWeapon = false;
 		weapon.ammo = -1;
@@ -101,13 +105,20 @@ public class Enemy : MonoBehaviour {
 	void OnTriggerStay2D (Collider2D other) {
 		transform.rotation = Quaternion.Euler (0, 0, 0);
 
+
 		if (other.gameObject.layer == LayerMask.NameToLayer("Player")) {
 			// TODO passer les portes !
+			//Debug.Log ("DEBUG");
 			Vector3 playerPos = other.gameObject.transform.position;
 			Vector3 dir = (playerPos - transform.position).normalized;
-			RaycastHit2D hit = Physics2D.Raycast (transform.localPosition, dir, Mathf.Infinity, LayerMask.GetMask ("Player", "Wall"));
+			RaycastHit2D hit = Physics2D.Raycast (transform.position, dir, Mathf.Infinity, LayerMask.GetMask ("Player", "Wall"));
+			//Debug.DrawLine (transform.position, dir);
 			if (hit) {
+				Debug.Log ("COLLID :" + hit.collider.gameObject.layer);
+				Debug.Log ("LAYER :" + LayerMask.NameToLayer ("Player"));
+				Debug.Log ("MASK :" + LayerMask.GetMask ("Player"));
 				if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Player")) {
+					Debug.Log ("1");
 					_alerted = true;
 					_search = false;
 					// _targetObject = other.gameObject;
@@ -115,6 +126,7 @@ public class Enemy : MonoBehaviour {
 					_target = playerPos;
 				}
 				else if (_search && hit.collider.gameObject.layer == LayerMask.NameToLayer("Wall")) {
+					Debug.Log ("2");
 					_alerted = true;
 					_search = true;
 					// print(Vector3.Distance(_target, transform.position));
