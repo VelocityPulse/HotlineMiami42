@@ -533,10 +533,11 @@ MonoBehaviour:
   weaponAttach: {fileID: 1665455384336726}
   body: {fileID: 1415657712294588}
   leg: {fileID: 1004442674780660}
-  hudManager: {fileID: 0}
+  hudManager: {fileID: 114664303871086834, guid: 50f644e6c97f443459b86f3cb1ad2f2f,
+    type: 2}
   winSong: {fileID: 8300000, guid: 3f823d776f2224f7eaa3e3ad6976db1b, type: 3}
   dieSong: {fileID: 8300000, guid: 7faccf86862cc43bb9a5589bbb6c955f, type: 3}
-  audioSource: {fileID: 82523693610857332}
+  audioSource: {fileID: 0}
   speed: 5
   invincible: 0
 --- !u!124 &124073031772985018
