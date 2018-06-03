@@ -101,17 +101,19 @@ public class Player : MonoBehaviour {
 	void pickUpWeapon (GameObject w) {
 		weapon = w.GetComponent<Weapon> ();
 		weapon.playerWeapon = true;
+		audioSource.PlayOneShot (weapon.pickUpSong);
 		weaponAttach.SetActive (true);
 		weaponAttach.GetComponent<SpriteRenderer> ().sprite = weapon.weaponAttach;
 		weapon.spriteRenderer.enabled = false;
+
 		hudManager.ChangeWeapon(weapon.weaponName.ToString());
+	
 	}
 
 	void dropWeapon () {
 		weapon.drop (sprites.transform.rotation, transform.localPosition);
 		weapon = null;
 		weaponAttach.SetActive (false);
-
 		hudManager.ChangeWeapon("No Weapon");
 	}
 

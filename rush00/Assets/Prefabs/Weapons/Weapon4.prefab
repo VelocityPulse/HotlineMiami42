@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff8d0d8336c794189a5b63ed56ad7f81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponName: Machine Gun
+  weaponName: Sub Machine Gun
   weapon: {fileID: 21300000, guid: afebc235a4c8e420d8a46351da0a4b3f, type: 3}
   weaponAttach: {fileID: 21300000, guid: a315ebc2f13264de1ad811d9026e0221, type: 3}
   audioClip: {fileID: 8300000, guid: 2a66bd67ce9c148d9948c5b4a1e85970, type: 3}
