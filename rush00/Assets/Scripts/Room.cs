@@ -5,7 +5,7 @@ using UnityEngine;
 public class Room : MonoBehaviour {
 
 	public List<Door> doors = new List<Door>();
-
+	public List<Checkpoint> checkpoints = new List<Checkpoint> ();
 
 	void Start () {
 		
@@ -15,6 +15,12 @@ public class Room : MonoBehaviour {
 		
 	}
 
+	public Checkpoint getRandomCheckPoint() {
+		if (checkpoints.Count == 0){
+			return null;
+		}
+		return checkpoints [Random.Range (0, checkpoints.Count)];
+	}
 
 
 	public Door NextDoor(Vector3 target) {
@@ -43,20 +49,6 @@ public class Room : MonoBehaviour {
 		while ((randomValue = Random.Range(0, doors.Count)) == currentIndex) {
 			;
 		}
-
 		return doors[randomValue];
-		
-
-
-	// 	float closest = Vector3.Distance(target, doors[0].GetComponent<Renderer>().bounds.center);
-	// 	Door response = doors[0];
-	// 	foreach (Door door in doors) {
-	// 		Vector3 localPosition = door.GetComponent<Renderer>().bounds.center;
-	// 		float distance = Vector3.Distance(target, localPosition);
-	// 		if (distance <  closest) {
-	// 			response = door;
-	// 		}
-	// 	}
-	// 	return response;
 	}
 }

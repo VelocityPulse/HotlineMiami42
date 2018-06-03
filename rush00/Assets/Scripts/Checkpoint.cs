@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class Checkpoint : MonoBehaviour {
 
-	public Checkpoint nextCheckpoint;
+	public Checkpoint nextCheckpoint = null;
+
 	void Start () {
-		
+		if (!nextCheckpoint) {
+			nextCheckpoint = this;
+		}
 	}
 	
 	void Update () {

@@ -6,21 +6,25 @@ public class Enemy : MonoBehaviour {
 
 	private Vector3 _target;
 	private GameObject _targetObject = null;
+
 	private Weapon weapon;
 	private bool _alerted;
 	private bool _search;
-	
 
-	[SerializeField] private Checkpoint _checkpoint = null;
+	[Header ("leave empty for random checkpoint")]
+	public Checkpoint _checkpoint = null;
+
+
 	[SerializeField] private float speed;
 	[SerializeField] private Room _room;
-
 	public List<GameObject> weaponPrefabs;
 	public GameObject sprites;
 	public GameObject head;
 	public GameObject weaponAttach;
 	public GameObject body;
 	public GameObject leg;
+
+	private Animator legAnimator;
 
 
 	void Start () {
@@ -36,6 +40,10 @@ public class Enemy : MonoBehaviour {
 			_targetObject = null;
 		}
 
+		if (!_checkpoint) {
+			_checkpoint = _room.getRandomCheckPoint ();
+		}
+
 		int randomValue = Random.Range (0, weaponPrefabs.Count);
 		weaponPrefabs [randomValue].transform.localPosition = transform.localPosition;
 		weapon = Instantiate (weaponPrefabs [randomValue]).GetComponent<Weapon>();
@@ -43,16 +51,18 @@ public class Enemy : MonoBehaviour {
 		weapon.playerWeapon = false;
 		weapon.ammo = -1;
 		weaponAttach.SetActive (true);
+
+		legAnimator = leg.GetComponent<Animator> ();
 	}
 
-	void FixedUpdate () {
-		HandleDirection ();
+	void HandleTarget() {
 		if (_targetObject != null) {
 			_target = _targetObject.transform.position;
 		} else if (!_alerted) {
 			_target = transform.position;
 		}
 		if (_alerted && !_search) {
+			legAnimator.Play ("legAnimation");
 			Fire ();
 		}
 
@@ -61,9 +71,21 @@ public class Enemy : MonoBehaviour {
 				_checkpoint = _checkpoint.nextCheckpoint;
 			}
 			_targetObject = _checkpoint.gameObject;
-		} else if (_alerted && Vector3.Distance(_target, transform.position) < 0.05) {
-			DoorGestion();
+		} else if (_alerted && Vector3.Distance (_target, transform.position) < 0.05) {
+			DoorGestion ();
 		}
+	}
+
+	void FixedUpdate () {
+
+		if (transform.position == _target) {
+			legAnimator.Play ("idle");
+		} else {
+			legAnimator.Play ("legMoving");
+		}
+
+		HandleDirection ();
+		HandleTarget ();
 
 		transform.position = Vector3.MoveTowards (transform.position, _target, speed * Time.deltaTime);
 	}
