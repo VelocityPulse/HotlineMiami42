@@ -5,6 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour {
 
 	private Vector3 _target;
+	private GameObject _targetObject = null;
 	private Weapon weapon;
 	private bool _alive;
 	private bool _alerted;
@@ -30,8 +31,13 @@ public class Enemy : MonoBehaviour {
 		_search = false;
 		_see = false;
 		// _alive = true;
+
+
 		if (_checkpoint != null) {
 			leg.GetComponent<Animator>().Play("legMoving");
+			_targetObject = _checkpoint.gameObject;
+		} else {
+			_targetObject = null;
 		}
 
 		int randomValue = Random.Range (0, weaponPrefabs.Count);
@@ -44,29 +50,51 @@ public class Enemy : MonoBehaviour {
 
 	void FixedUpdate () {
 		HandleDirection ();
+		if (_targetObject != null) {
+			if (_targetObject.layer == LayerMask.NameToLayer("Wall")) {
+				_target = _targetObject.GetComponent<Renderer>().bounds.center;
+			} else {
+				_target = _targetObject.transform.position;
+			}
+		} else {
+			_target = transform.position;
+		}
 		if (_alerted) {
 			tryToFire ();
 		}
-// if (Input.GetMouseButtonDown(0)) {
-// 				_target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-// 				_target.z = transform.position.z;
-// }
 
 		if (!_alerted && _checkpoint != null) {
 			if (_target == transform.position) {
 				_checkpoint = _checkpoint.nextCheckpoint;
 			}
-			_target = _checkpoint.transform.position;
+			_targetObject = _checkpoint.gameObject;
+		} else if (Vector3.Distance(_target, transform.position) < 0.4) {
+			// print(_targetObject.transform.position);
+		print(Vector3.Distance(_target, transform.position));
+			Door newDoor = _room.NextDoor(_target);
+			if (_room.name == newDoor.room1.name) {
+				_room = newDoor.room2;
+			} else {
+				_room = newDoor.room1;
+			}
+			newDoor = _room.NextDoor(_target);
+			_targetObject = newDoor.gameObject;
 		}
-		// Je cherche je dois aller a la porte suivante
-		if (_search && _target == transform.position) {
-			// _target = _room.OtherDoor(_target);
-			print("je cherche");
-			// donne un chemin au hasard
-			// _target = doorManager.NextDoor(_target);
-			// roomManager.OtherDoor(_target);
-			// FOUILLER ALEATOIREMENT
-		}
+
+		// if (_search && _target == transform.position) {
+		// 	// _target = _room.OtherDoor(_target);
+		// 	Door newDoor = _room.NextDoor(_target);
+		// 	if (_room.name == newDoor.room1.name) {
+		// 		_room = newDoor.room2;
+		// 	} else {
+		// 		_room = newDoor.room1;
+		// 	}
+		// 	print("je cherche");
+		// 	// donne un chemin au hasard
+		// 	// _target = doorManager.NextDoor(_target);
+		// 	// roomManager.OtherDoor(_target);
+		// 	// FOUILLER ALEATOIREMENT
+		// }
 		// else if (_alerted && _target == transform.position) {
 		// 	_target = new Vector3(Random.Range(transform.position.x -2, transform.position.x + 2), Random.Range(transform.position.y -2, transform.position.y + 2));
 		// }
@@ -95,27 +123,30 @@ public class Enemy : MonoBehaviour {
 			Vector3 dir = (playerPos - transform.position).normalized;
 			RaycastHit2D hit = Physics2D.Raycast (transform.localPosition, dir, Mathf.Infinity, LayerMask.GetMask ("Player", "Wall"));
 			if (hit) {
-				// Je vois le player
 				if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Player")) {
 					_alerted = true;
 					_search = false;
+					// _targetObject = other.gameObject;
+					_targetObject = null;
 					_target = playerPos;
 				}
-				// Je l'ai entendu
 				else if (_search && hit.collider.gameObject.layer == LayerMask.NameToLayer("Wall")) {
 					_search = true;
+					print(Vector3.Distance(_target, transform.position));
+					// print("NEXT DOOR");
 					Door newDoor = _room.NextDoor(_target);
-					if (_room.name == newDoor.room1.name) {
-						_room = newDoor.room2;
-					} else {
-						_room = newDoor.room1;
-					}
+					_targetObject = newDoor.gameObject;
+					// _target = newDoor.gameObject.GetComponent<Renderer>().bounds.center;
 				}
 			}
 		} else if (!_search && other.gameObject.layer == LayerMask.NameToLayer("ProjectilePlayer")) {
 			_alerted = true;
 			_search = true;
-			_target = other.gameObject.transform.position;
+			print(_targetObject.transform.position);
+					// print("FIRST NEXT DOOR");
+			Door newDoor = _room.NextDoor(other.gameObject.transform.position);
+			_targetObject = newDoor.gameObject;
+			// _target = other.gameObject.transform.position;
 		}
 	}
 
@@ -140,9 +171,4 @@ public class Enemy : MonoBehaviour {
 	void fire () {
 		weapon.fire (sprites.transform.rotation, transform);
 	}
-
-	// public void ChangeRoomManager(GameObject newRoomManager) {
-	// 	roomManager = newRoomManager.GetComponent<RoomManager>();
-	// }
-
 }

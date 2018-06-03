@@ -21,7 +21,8 @@ public class Room : MonoBehaviour {
 		foreach (Door door in doors) {
 			Vector3 localPosition = door.GetComponent<Renderer>().bounds.center;
 			float distance = Vector3.Distance(target, localPosition);
-			if (distance <  closest) {
+			if (distance > 1 && distance <  closest) {
+				print("DISTANCE ' " + distance);
 				response = door;
 			}
 		}
