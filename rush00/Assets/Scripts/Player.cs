@@ -111,6 +111,7 @@ public class Player : MonoBehaviour {
 		weapon.drop (sprites.transform.rotation, transform.localPosition);
 		weapon = null;
 		weaponAttach.SetActive (false);
+
 		hudManager.ChangeWeapon("No Weapon");
 	}
 

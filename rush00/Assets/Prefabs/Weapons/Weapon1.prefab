@@ -129,6 +129,7 @@ MonoBehaviour:
   weapon: {fileID: 21300000, guid: 3a582ad63bf63437ca436507f3c5fbe8, type: 3}
   weaponAttach: {fileID: 21300000, guid: 43a139c7bee644f6f96d3ce30cc7cc15, type: 3}
   audioClip: {fileID: 8300000, guid: d27266dbeb98e4717a95f991054745c7, type: 3}
+  pickUpSong: {fileID: 8300000, guid: bd5112458d23d48faa52fe82499275ed, type: 3}
   shoot: {fileID: 1915268005821836, guid: b06a789b530e34bd4999740337879729, type: 2}
   speedFire: 0.15
   ammo: 30
