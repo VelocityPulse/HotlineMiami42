@@ -18,6 +18,10 @@ public class HUDManager : MonoBehaviour {
 	void Update () {
 	}
 
+	public void StartButton() {
+		SceneManager.LoadScene("Scenes/Final");		
+	}
+
 	public void PlayButton() {
 		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 		Time.timeScale = 1;
