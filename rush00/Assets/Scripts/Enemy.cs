@@ -7,10 +7,8 @@ public class Enemy : MonoBehaviour {
 	private Vector3 _target;
 	private GameObject _targetObject = null;
 	private Weapon weapon;
-	private bool _alive;
 	private bool _alerted;
 	private bool _search;
-	private bool _see;
 	
 
 	[SerializeField] private Checkpoint _checkpoint = null;
@@ -29,8 +27,6 @@ public class Enemy : MonoBehaviour {
 		_target = transform.position;
 		_alerted = false;
 		_search = false;
-		_see = false;
-		// _alive = true;
 
 
 		if (_checkpoint != null) {
@@ -47,25 +43,17 @@ public class Enemy : MonoBehaviour {
 		weapon.playerWeapon = false;
 		weapon.ammo = -1;
 		weaponAttach.SetActive (true);
-		// weaponAttach.GetComponent<SpriteRenderer> ().sprite = weapon.weaponAttach;
 	}
 
 	void FixedUpdate () {
 		HandleDirection ();
-					print(_target);
 		if (_targetObject != null) {
-			// if (_targetObject.layer == LayerMask.NameToLayer("Wall")) {
-			// 	_target = _targetObject.GetComponent<Renderer>().bounds.center;
-			// } else {
-				// _target = _targetObject.transform.position;
-			// }
-			_target = _targetObject.transform.localPosition;
-			print(_target);
-		} else {
+			_target = _targetObject.transform.position;
+		} else if (!_alerted) {
 			_target = transform.position;
 		}
-		if (_alerted) {
-			tryToFire ();
+		if (_alerted && !_search) {
+			Fire ();
 		}
 
 		if (!_alerted && _checkpoint != null) {
@@ -73,41 +61,9 @@ public class Enemy : MonoBehaviour {
 				_checkpoint = _checkpoint.nextCheckpoint;
 			}
 			_targetObject = _checkpoint.gameObject;
-		} else if (Vector3.Distance(_target, transform.position) < 0.4) {
-			// print(_targetObject.transform.position);
-		// print(Vector3.Distance(_target, transform.position));
-			Door newDoor = _room.NextDoor(_target);
-			print(newDoor.name);
-			if (_room.name == newDoor.room1.name) {
-				_room = newDoor.room2;
-			} else {
-				_room = newDoor.room1;
-			}
-			newDoor = _room.NextDoor(_target);
-			_targetObject = newDoor.gameObject;
+		} else if (Vector3.Distance(_target, transform.position) < 0.05) {
+			DoorGestion();
 		}
-
-		// if (_search && _target == transform.position) {
-		// 	// _target = _room.OtherDoor(_target);
-		// 	Door newDoor = _room.NextDoor(_target);
-		// 	if (_room.name == newDoor.room1.name) {
-		// 		_room = newDoor.room2;
-		// 	} else {
-		// 		_room = newDoor.room1;
-		// 	}
-		// 	print("je cherche");
-		// 	// donne un chemin au hasard
-		// 	// _target = doorManager.NextDoor(_target);
-		// 	// roomManager.OtherDoor(_target);
-		// 	// FOUILLER ALEATOIREMENT
-		// }
-		// else if (_alerted && _target == transform.position) {
-		// 	_target = new Vector3(Random.Range(transform.position.x -2, transform.position.x + 2), Random.Range(transform.position.y -2, transform.position.y + 2));
-		// }
-
-		// if (_search) {
-		// 	_target = 
-		// }
 
 		transform.position = Vector3.MoveTowards (transform.position, _target, speed * Time.deltaTime);
 	}
@@ -137,10 +93,10 @@ public class Enemy : MonoBehaviour {
 					_target = playerPos;
 				}
 				else if (_search && hit.collider.gameObject.layer == LayerMask.NameToLayer("Wall")) {
+					_alerted = true;
 					_search = true;
 					// print(Vector3.Distance(_target, transform.position));
 					// print("NEXT DOOR");
-					print(_room);
 					Door newDoor = _room.NextDoor(_target);
 					_targetObject = newDoor.gameObject;
 					// _target = newDoor.gameObject.GetComponent<Renderer>().bounds.center;
@@ -166,16 +122,26 @@ public class Enemy : MonoBehaviour {
 
 	private IEnumerator StopFollowPlayer () {
 		yield return new WaitForSeconds(5);
+		print("FIN COROUTINE");
 		_alerted = false;
 		_search = false;
 	}
 
-	void tryToFire() {
-		
-		fire ();
+	void Fire () {
+		weapon.fire (sprites.transform.rotation, transform);
 	}
 
-	void fire () {
-		weapon.fire (sprites.transform.rotation, transform);
+	private void DoorGestion() {
+		if (_room.name == _targetObject.GetComponent<Door>().room1.name) {
+				_room = _targetObject.GetComponent<Door>().room2;
+			} else {
+				_room = _targetObject.GetComponent<Door>().room1;
+			}
+
+			_targetObject = _room.OtherDoor(_targetObject.GetComponent<Door>()).gameObject;
+
+			// CAS CUL DE SAC A GERER SAC A MERDE
+			// Door newDoor = _room.OtherDoor(_targetObject.GetComponent<Door>());
+
 	}
 }
