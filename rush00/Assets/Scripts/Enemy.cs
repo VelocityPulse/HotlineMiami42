@@ -63,7 +63,7 @@ public class Enemy : MonoBehaviour {
 		HandleDirection ();
 		HandleTarget ();
 		transform.position = Vector3.MoveTowards (transform.position, _target, speed * Time.deltaTime);
-		DebugPrint ();
+		// DebugPrint ();
 	}
 
 	void HandleAnimation () {
