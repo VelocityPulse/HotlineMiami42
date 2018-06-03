@@ -30,7 +30,6 @@ public class Player : MonoBehaviour {
 		direction = Vector2.zero;
 	}
 
-
 	void handleControls () {
 		direction.x = Input.GetAxis("Horizontal");
 		direction.y = Input.GetAxis("Vertical");
@@ -46,7 +45,6 @@ public class Player : MonoBehaviour {
 		if (Input.GetMouseButtonDown (1) && weapon) {
 			dropWeapon ();
 		}
-
 	}
 
 	void makeTranslateAndAnimation () {
@@ -110,14 +108,6 @@ public class Player : MonoBehaviour {
 
 	private void OnTriggerStay2D (Collider2D other) {
 		transform.localRotation = new Quaternion (0, 0, 0, 0);
-		// if (Input.GetKeyDown (KeyCode.E)) {
-		// 	if (other.gameObject.tag == "Weapon") {
-		// 		if (weapon) {
-		// 			dropWeapon ();
-		// 		}
-		// 		pickUpWeapon(other.gameObject);
-		// 	}
-		// }
 	}
 
 	public void die () {

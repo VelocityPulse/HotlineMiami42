@@ -129,7 +129,7 @@ MonoBehaviour:
   weaponAttach: {fileID: 21300000, guid: 43a139c7bee644f6f96d3ce30cc7cc15, type: 3}
   audioClip: {fileID: 8300000, guid: d27266dbeb98e4717a95f991054745c7, type: 3}
   shoot: {fileID: 1915268005821836, guid: b06a789b530e34bd4999740337879729, type: 2}
-  speedFire: 0.2
+  speedFire: 0.15
   ammo: 30
   playerWeapon: 0
   spriteRenderer: {fileID: 0}
