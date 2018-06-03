@@ -34,7 +34,7 @@ public class Enemy : MonoBehaviour {
 
 
 		if (_checkpoint != null) {
-			leg.GetComponent<Animator>().Play("legMoving");
+			leg.GetComponent<Animator> ().Play ("legMoving");
 			_targetObject = _checkpoint.gameObject;
 		} else {
 			_targetObject = null;
@@ -46,7 +46,7 @@ public class Enemy : MonoBehaviour {
 
 		int randomValue = Random.Range (0, weaponPrefabs.Count);
 
-		weapon = Instantiate (weaponPrefabs [randomValue], transform).GetComponent<Weapon>();
+		weapon = Instantiate (weaponPrefabs [randomValue], transform).GetComponent<Weapon> ();
 		weapon.GetComponent<Rigidbody2D> ().simulated = false;
 		weapon.GetComponent<SpriteRenderer> ().enabled = false;
 		weapon.playerWeapon = false;
@@ -56,7 +56,22 @@ public class Enemy : MonoBehaviour {
 		legAnimator = leg.GetComponent<Animator> ();
 	}
 
-	void HandleTarget() {
+	void FixedUpdate () {
+		HandleAnimation ();
+		HandleDirection ();
+		HandleTarget ();
+		transform.position = Vector3.MoveTowards (transform.position, _target, speed * Time.deltaTime);
+	}
+
+	void HandleAnimation () {
+		if (transform.position == _target) {
+			legAnimator.Play ("idle");
+		} else {
+			legAnimator.Play ("legMoving");
+		}
+	}
+
+	void HandleTarget () {
 		if (_targetObject != null) {
 			_target = _targetObject.transform.position;
 		} else if (!_alerted) {
@@ -77,24 +92,11 @@ public class Enemy : MonoBehaviour {
 		}
 	}
 
-	void FixedUpdate () {
-
-		if (transform.position == _target) {
-			legAnimator.Play ("idle");
-		} else {
-			legAnimator.Play ("legMoving");
-		}
-
-		HandleDirection ();
-		HandleTarget ();
-
-		transform.position = Vector3.MoveTowards (transform.position, _target, speed * Time.deltaTime);
-	}
 
 	void OnTriggerExit2D (Collider2D other) {
 		if (other.gameObject.tag == "Player") {
 			if (_alerted) {
-				StartCoroutine("StopFollowPlayer");
+				StartCoroutine ("StopFollowPlayer");
 			}
 		}
 	}
@@ -102,45 +104,29 @@ public class Enemy : MonoBehaviour {
 	void OnTriggerStay2D (Collider2D other) {
 		transform.rotation = Quaternion.Euler (0, 0, 0);
 
-
-		if (other.gameObject.layer == LayerMask.NameToLayer("Player")) {
+		if (other.gameObject.layer == LayerMask.NameToLayer ("Player")) {
 			// TODO passer les portes !
-			//Debug.Log ("DEBUG");
 			Vector3 playerPos = other.gameObject.transform.position;
 			Vector3 dir = (playerPos - transform.position).normalized;
 			RaycastHit2D hit = Physics2D.Raycast (transform.position, dir, Mathf.Infinity, LayerMask.GetMask ("Player", "Wall"));
-			//Debug.DrawLine (transform.position, dir);
 			if (hit) {
-				//Debug.Log ("COLLID :" + hit.collider.gameObject.layer);
-				//Debug.Log ("LAYER :" + LayerMask.NameToLayer ("Player"));
-				//Debug.Log ("MASK :" + LayerMask.GetMask ("Player"));
-				if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Player")) {
-					//Debug.Log ("1");
+				if (hit.collider.gameObject.layer == LayerMask.NameToLayer ("Player")) {
 					_alerted = true;
 					_search = false;
-					// _targetObject = other.gameObject;
 					_targetObject = null;
 					_target = playerPos;
-				}
-				else if (_search && hit.collider.gameObject.layer == LayerMask.NameToLayer("Wall")) {
-					//Debug.Log ("2");
+				} else if (_search && hit.collider.gameObject.layer == LayerMask.NameToLayer ("Wall")) {
 					_alerted = true;
 					_search = true;
-					// print(Vector3.Distance(_target, transform.position));
-					// print("NEXT DOOR");
-					Door newDoor = _room.NextDoor(_target);
+					Door newDoor = _room.NextDoor (_target);
 					_targetObject = newDoor.gameObject;
-					// _target = newDoor.gameObject.GetComponent<Renderer>().bounds.center;
 				}
 			}
-		} else if (!_search && other.gameObject.layer == LayerMask.NameToLayer("ProjectilePlayer")) {
+		} else if (!_search && other.gameObject.layer == LayerMask.NameToLayer ("ProjectilePlayer")) {
 			_alerted = true;
 			_search = true;
-			// print(_targetObject.transform.position);
-					// print("FIRST NEXT DOOR");
-			Door newDoor = _room.NextDoor(other.gameObject.transform.position);
+			Door newDoor = _room.NextDoor (other.gameObject.transform.position);
 			_targetObject = newDoor.gameObject;
-			// _target = other.gameObject.transform.position;
 		}
 	}
 
@@ -152,8 +138,7 @@ public class Enemy : MonoBehaviour {
 	}
 
 	private IEnumerator StopFollowPlayer () {
-		yield return new WaitForSeconds(5);
-		//print("FIN COROUTINE");
+		yield return new WaitForSeconds (10);
 		_alerted = false;
 		_search = false;
 	}
@@ -162,18 +147,18 @@ public class Enemy : MonoBehaviour {
 		weapon.fire (sprites.transform.rotation, transform);
 	}
 
-	private void DoorGestion() {
+	private void DoorGestion () {
 		if (_targetObject != null) {
-			if (_room.name == _targetObject.GetComponent<Door>().room1.name) {
-					_room = _targetObject.GetComponent<Door>().room2;
-				} else {
-					_room = _targetObject.GetComponent<Door>().room1;
+			if (_room.name == _targetObject.GetComponent<Door> ().room1.name) {
+				_room = _targetObject.GetComponent<Door> ().room2;
+			} else {
+				_room = _targetObject.GetComponent<Door> ().room1;
 			}
-			_targetObject = _room.OtherDoor(_targetObject.GetComponent<Door>()).gameObject;
+			_targetObject = _room.OtherDoor (_targetObject.GetComponent<Door> ()).gameObject;
 		}
 
-			// CAS CUL DE SAC A GERER SAC A MERDE
-			// Door newDoor = _room.OtherDoor(_targetObject.GetComponent<Door>());
+		// CAS CUL DE SAC A GERER SAC A MERDE
+		// Door newDoor = _room.OtherDoor(_targetObject.GetComponent<Door>());
 
 	}
 }
