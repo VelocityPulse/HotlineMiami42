@@ -61,6 +61,7 @@ public class Enemy : MonoBehaviour {
 		HandleDirection ();
 		HandleTarget ();
 		transform.position = Vector3.MoveTowards (transform.position, _target, speed * Time.deltaTime);
+		DebugPrint ();
 	}
 
 	void HandleAnimation () {
@@ -69,6 +70,18 @@ public class Enemy : MonoBehaviour {
 		} else {
 			legAnimator.Play ("legMoving");
 		}
+	}
+
+	void DebugPrint () {
+		Debug.Log ("PRINT ------------------------------");
+		Debug.Log ("_target  : " + _target);
+		if (_targetObject) {
+			Debug.Log ("_targetObject : " + _targetObject.name);
+		} else {
+			Debug.Log ("_targetObject : null");
+		}
+		Debug.Log ("_alerted : " + _alerted);
+		Debug.Log ("_search  : " + _search);
 	}
 
 	void HandleTarget () {
@@ -81,6 +94,10 @@ public class Enemy : MonoBehaviour {
 			legAnimator.Play ("legMoving");
 			Fire ();
 		}
+		if (_alerted && _search && !_targetObject) {
+			Door newDoor = _room.NextDoor (_target);
+			_targetObject = newDoor.gameObject;
+		}
 
 		if (!_alerted && _checkpoint != null) {
 			if (_target == transform.position) {
@@ -91,7 +108,6 @@ public class Enemy : MonoBehaviour {
 			DoorGestion ();
 		}
 	}
-
 
 	void OnTriggerExit2D (Collider2D other) {
 		if (other.gameObject.tag == "Player") {
