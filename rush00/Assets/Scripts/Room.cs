@@ -16,10 +16,10 @@ public class Room : MonoBehaviour {
 	}
 
 	public Door NextDoor(Vector3 target) {
-		float closest = Vector3.Distance(target, doors[0].GetComponent<Renderer>().bounds.center);
+		float closest = Vector3.Distance(target, doors[0].transform.localPosition);
 		Door response = doors[0];
 		foreach (Door door in doors) {
-			Vector3 localPosition = door.GetComponent<Renderer>().bounds.center;
+			Vector3 localPosition = door.transform.localPosition;
 			float distance = Vector3.Distance(target, localPosition);
 			if (distance > 1 && distance <  closest) {
 				print("DISTANCE ' " + distance);

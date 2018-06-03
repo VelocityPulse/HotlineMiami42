@@ -52,14 +52,16 @@ public class Enemy : MonoBehaviour {
 
 	void FixedUpdate () {
 		HandleDirection ();
+					print(_target);
 		if (_targetObject != null) {
-			if (_targetObject.layer == LayerMask.NameToLayer("Wall")) {
-				_target = _targetObject.GetComponent<Renderer>().bounds.center;
-			} else {
-				_target = _targetObject.transform.position;
-			}
+			// if (_targetObject.layer == LayerMask.NameToLayer("Wall")) {
+			// 	_target = _targetObject.GetComponent<Renderer>().bounds.center;
+			// } else {
+				// _target = _targetObject.transform.position;
+			// }
+			_target = _targetObject.transform.localPosition;
+			print(_target);
 		} else {
-			print("sdfjsldjfk'");
 			_target = transform.position;
 		}
 		if (_alerted) {
@@ -75,6 +77,7 @@ public class Enemy : MonoBehaviour {
 			// print(_targetObject.transform.position);
 		// print(Vector3.Distance(_target, transform.position));
 			Door newDoor = _room.NextDoor(_target);
+			print(newDoor.name);
 			if (_room.name == newDoor.room1.name) {
 				_room = newDoor.room2;
 			} else {
@@ -137,6 +140,7 @@ public class Enemy : MonoBehaviour {
 					_search = true;
 					// print(Vector3.Distance(_target, transform.position));
 					// print("NEXT DOOR");
+					print(_room);
 					Door newDoor = _room.NextDoor(_target);
 					_targetObject = newDoor.gameObject;
 					// _target = newDoor.gameObject.GetComponent<Renderer>().bounds.center;
