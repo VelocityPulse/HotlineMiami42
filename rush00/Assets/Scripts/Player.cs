@@ -55,9 +55,9 @@ public class Player : MonoBehaviour {
 		// 	direction -= Vector2.up;
 		// }
 
-		// if (Input.GetKeyDown (KeyCode.E)) {
-		// 	tryPickUpWeapon ();
-		// }
+		if (Input.GetKeyDown (KeyCode.E)) {
+			tryPickUpWeapon ();
+		}
 
 		if (Input.GetMouseButton (0) && weapon) {
 			weapon.fire (sprites.transform.rotation, transform);
@@ -70,8 +70,6 @@ public class Player : MonoBehaviour {
 	}
 
 	void makeTranslateAndAnimation () {
-		// transform.position = Vector3.MoveTowards (transform.position, new Vector2(direction.x, direction.y), speed * Time.deltaTime);
-		// this.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(move * speed, gameObject.GetComponent<Rigidbody2D>().velocity.y);
 		gameObject.GetComponent<Rigidbody2D>().velocity = direction * speed;
 		gameObject.transform.rotation = new Quaternion(0, 0, 0, 0);
 
@@ -137,14 +135,14 @@ public class Player : MonoBehaviour {
 
 	private void OnTriggerStay2D (Collider2D other) {
 		transform.localRotation = new Quaternion (0, 0, 0, 0);
-		if (Input.GetKeyDown (KeyCode.E)) {
-			if (other.gameObject.tag == "Weapon") {
-				if (weapon) {
-					dropWeapon ();
-				}
-				pickUpWeapon(other.gameObject);
-			}
-		}
+		// if (Input.GetKeyDown (KeyCode.E)) {
+		// 	if (other.gameObject.tag == "Weapon") {
+		// 		if (weapon) {
+		// 			dropWeapon ();
+		// 		}
+		// 		pickUpWeapon(other.gameObject);
+		// 	}
+		// }
 	}
 
 	public void die () {

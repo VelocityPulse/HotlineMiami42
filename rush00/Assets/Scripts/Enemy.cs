@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour {
 
 	[SerializeField] private Checkpoint _checkpoint = null;
 	[SerializeField] private float speed;
+	[SerializeField] private Room _room;
 
 	public List<GameObject> weaponPrefabs;
 	public GameObject sprites;
@@ -38,7 +39,7 @@ public class Enemy : MonoBehaviour {
 		weapon = Instantiate (weaponPrefabs [randomValue]).GetComponent<Weapon>();
 		weapon.playerWeapon = false;
 		weaponAttach.SetActive (true);
-		weaponAttach.GetComponent<SpriteRenderer> ().sprite = weapon.weaponAttach;
+		// weaponAttach.GetComponent<SpriteRenderer> ().sprite = weapon.weaponAttach;
 	}
 
 	void FixedUpdate () {
@@ -59,10 +60,11 @@ public class Enemy : MonoBehaviour {
 		}
 		// Je cherche je dois aller a la porte suivante
 		if (_search && _target == transform.position) {
+			// _target = _room.OtherDoor(_target);
 			print("je cherche");
 			// donne un chemin au hasard
 			// _target = doorManager.NextDoor(_target);
-			roomManager.OtherDoor(_target);
+			// roomManager.OtherDoor(_target);
 			// FOUILLER ALEATOIREMENT
 		}
 		// else if (_alerted && _target == transform.position) {
@@ -102,10 +104,14 @@ public class Enemy : MonoBehaviour {
 				// Je l'ai entendu
 				else if (_search && hit.collider.gameObject.layer == LayerMask.NameToLayer("Wall")) {
 					_search = true;
-					// _target = doorManager.NextDoor(_target);
+					Door newDoor = _room.NextDoor(_target);
+					if (_room.name == newDoor.room1.name) {
+						_room = newDoor.room2;
+					} else {
+						_room = newDoor.room1;
+					}
 				}
 			}
-		// Si il y a un projectile (je l'entends) et si je le cherche pas deja
 		} else if (!_search && other.gameObject.layer == LayerMask.NameToLayer("ProjectilePlayer")) {
 			_alerted = true;
 			_search = true;
