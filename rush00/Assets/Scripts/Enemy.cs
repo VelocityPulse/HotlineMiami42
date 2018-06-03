@@ -30,6 +30,7 @@ public class Enemy : MonoBehaviour {
 		int randomValue = Random.Range (0, weaponPrefabs.Count);
 		weaponPrefabs [randomValue].transform.localPosition = transform.localPosition;
 		weapon = Instantiate (weaponPrefabs [randomValue]).GetComponent<Weapon>();
+		weapon.GetComponent<SpriteRenderer> ().enabled = false;
 		weapon.playerWeapon = false;
 		weaponAttach.SetActive (true);
 		weaponAttach.GetComponent<SpriteRenderer> ().sprite = weapon.weaponAttach;
