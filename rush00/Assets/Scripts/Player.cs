@@ -32,7 +32,7 @@ public class Player : MonoBehaviour {
 		}
 		legAnimator = leg.GetComponent<Animator> ();
 		direction = Vector2.zero;
-		Object.DontDestroyOnLoad (gameObject);
+		//Object.DontDestroyOnLoad (gameObject);
 	}
 
 	void handleControls () {
