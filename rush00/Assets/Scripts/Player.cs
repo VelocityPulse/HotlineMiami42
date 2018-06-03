@@ -135,11 +135,13 @@ public class Player : MonoBehaviour {
 			return;
 		}
 		audioSource.PlayOneShot (dieSong);
+		Time.timeScale = 0;
 		hudManager.Loose();
 	}
 
 	public void win () {
 		audioSource.PlayOneShot (winSong);
+		Time.timeScale = 0;		
 		hudManager.Win();
 	}
 
