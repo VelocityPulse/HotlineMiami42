@@ -10,50 +10,34 @@ public class Player : MonoBehaviour {
 	public GameObject body;
 	public GameObject leg;
 
+	public AudioClip winSong = null;
+	public AudioClip dieSong = null;
+
+	public AudioSource audioSource = null;
+
+	public static Player p = null;
+
 	private Weapon weapon = null;
 
 	public float speed;
+	public bool invincible = false;
 
 	private Animator legAnimator;
 	private Vector2 direction;
 
-
 	// Use this for initialization
 	void Start () {
+		if (p == null) {
+			p = this;
+		}
 		legAnimator = leg.GetComponent<Animator> ();
 		direction = Vector2.zero;
+		//Object.DontDestroyOnLoad (gameObject);
 	}
 
-
 	void handleControls () {
-		direction.x = Input.GetAxis("Horizontal");
-		direction.y = Input.GetAxis("Vertical");
-
-		// if (Input.GetKeyDown (KeyCode.A)) {
-		// 	direction += Vector2.left;
-		// }
-		// if (Input.GetKeyDown (KeyCode.D)) {
-		// 	direction += Vector2.right;
-		// }
-		// if (Input.GetKeyDown (KeyCode.S)) {
-		// 	direction += Vector2.down;
-		// }
-		// if (Input.GetKeyDown (KeyCode.W)) {
-		// 	direction += Vector2.up;
-		// }
-
-		// if (Input.GetKeyUp (KeyCode.A)) {
-		// 	direction -= Vector2.left;
-		// }
-		// if (Input.GetKeyUp (KeyCode.D)) {
-		// 	direction -= Vector2.right;
-		// }
-		// if (Input.GetKeyUp (KeyCode.S)) {
-		// 	direction -= Vector2.down;
-		// }
-		// if (Input.GetKeyUp (KeyCode.W)) {
-		// 	direction -= Vector2.up;
-		// }
+		direction.x = Input.GetAxis ("Horizontal");
+		direction.y = Input.GetAxis ("Vertical");
 
 		if (Input.GetKeyDown (KeyCode.E)) {
 			tryPickUpWeapon ();
@@ -66,17 +50,11 @@ public class Player : MonoBehaviour {
 		if (Input.GetMouseButtonDown (1) && weapon) {
 			dropWeapon ();
 		}
-
 	}
 
 	void makeTranslateAndAnimation () {
-		gameObject.GetComponent<Rigidbody2D>().velocity = direction * speed;
-		gameObject.transform.rotation = new Quaternion(0, 0, 0, 0);
-
-
-		// transform.Translate (new Vector3 (direction.x, direction.y, 0)
-		// 					 * Time.deltaTime
-		// 					 * speed);
+		gameObject.GetComponent<Rigidbody2D> ().velocity = direction * speed;
+		gameObject.transform.rotation = new Quaternion (0, 0, 0, 0);
 
 		if (direction != Vector2.zero) {
 			legAnimator.Play ("legMoving");
@@ -135,18 +113,23 @@ public class Player : MonoBehaviour {
 
 	private void OnTriggerStay2D (Collider2D other) {
 		transform.localRotation = new Quaternion (0, 0, 0, 0);
-		// if (Input.GetKeyDown (KeyCode.E)) {
-		// 	if (other.gameObject.tag == "Weapon") {
-		// 		if (weapon) {
-		// 			dropWeapon ();
-		// 		}
-		// 		pickUpWeapon(other.gameObject);
-		// 	}
-		// }
 	}
 
 	public void die () {
 		Debug.Log ("DIE");
+		if (invincible) {
+			return;
+		}
+		UnityEngine.SceneManagement.SceneManager.LoadScene (
+			UnityEngine.SceneManagement.SceneManager.GetActiveScene ().name);
+		Debug.Log ("reload");
+		audioSource.PlayOneShot (dieSong);
+
+	}
+
+	public void win () {
+		audioSource.PlayOneShot (winSong);
+		Debug.Log ("WIN");
 	}
 
 }
