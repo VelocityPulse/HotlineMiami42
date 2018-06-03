@@ -19,7 +19,7 @@ public class HUDManager : MonoBehaviour {
 	}
 
 	public void PlayButton() {
-		SceneManager.LoadScene("Scenes/Level1");
+		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
 
 	public void QuitButton() {

@@ -131,13 +131,9 @@ public class Player : MonoBehaviour {
 	}
 
 	public void die () {
-		// Debug.Log ("DIE");
 		if (invincible) {
 			return;
 		}
-		// UnityEngine.SceneManagement.SceneManager.LoadScene (
-		// 	UnityEngine.SceneManagement.SceneManager.GetActiveScene ().name);
-		// Debug.Log ("reload");
 		audioSource.PlayOneShot (dieSong);
 		hudManager.Loose();
 	}
@@ -145,7 +141,6 @@ public class Player : MonoBehaviour {
 	public void win () {
 		audioSource.PlayOneShot (winSong);
 		hudManager.Win();
-		// Debug.Log ("WIN");
 	}
 
 }
