@@ -132,7 +132,7 @@ MonoBehaviour:
   pickUpSong: {fileID: 8300000, guid: bd5112458d23d48faa52fe82499275ed, type: 3}
   shoot: {fileID: 1108315779165314, guid: db8cc389385764c06a544d4e20af2a85, type: 2}
   speedFire: 0.1
-  ammo: 70
+  ammo: 40
   playerWeapon: 0
   spriteRenderer: {fileID: 0}
 --- !u!212 &212561640579812658
