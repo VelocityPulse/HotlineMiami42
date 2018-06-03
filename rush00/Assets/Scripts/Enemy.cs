@@ -6,21 +6,25 @@ public class Enemy : MonoBehaviour {
 
 	private Vector3 _target;
 	private GameObject _targetObject = null;
+
 	private Weapon weapon;
 	private bool _alerted;
 	private bool _search;
-	
 
-	[SerializeField] private Checkpoint _checkpoint = null;
+	[Header ("leave empty for random checkpoint")]
+	public Checkpoint _checkpoint = null;
+
+
 	[SerializeField] private float speed;
 	[SerializeField] private Room _room;
-
 	public List<GameObject> weaponPrefabs;
 	public GameObject sprites;
 	public GameObject head;
 	public GameObject weaponAttach;
 	public GameObject body;
 	public GameObject leg;
+
+	private Animator legAnimator;
 
 
 	void Start () {
@@ -36,23 +40,30 @@ public class Enemy : MonoBehaviour {
 			_targetObject = null;
 		}
 
+		if (!_checkpoint) {
+			_checkpoint = _room.getRandomCheckPoint ();
+		}
+
 		int randomValue = Random.Range (0, weaponPrefabs.Count);
-		weaponPrefabs [randomValue].transform.localPosition = transform.localPosition;
-		weapon = Instantiate (weaponPrefabs [randomValue]).GetComponent<Weapon>();
+
+		weapon = Instantiate (weaponPrefabs [randomValue], transform).GetComponent<Weapon>();
+		weapon.GetComponent<Rigidbody2D> ().simulated = false;
 		weapon.GetComponent<SpriteRenderer> ().enabled = false;
 		weapon.playerWeapon = false;
 		weapon.ammo = -1;
 		weaponAttach.SetActive (true);
+
+		legAnimator = leg.GetComponent<Animator> ();
 	}
 
-	void FixedUpdate () {
-		HandleDirection ();
+	void HandleTarget() {
 		if (_targetObject != null) {
 			_target = _targetObject.transform.position;
 		} else if (!_alerted) {
 			_target = transform.position;
 		}
 		if (_alerted && !_search) {
+			legAnimator.Play ("legMoving");
 			Fire ();
 		}
 
@@ -61,9 +72,21 @@ public class Enemy : MonoBehaviour {
 				_checkpoint = _checkpoint.nextCheckpoint;
 			}
 			_targetObject = _checkpoint.gameObject;
-		} else if (_alerted && Vector3.Distance(_target, transform.position) < 0.05) {
-			DoorGestion();
+		} else if (_alerted && Vector3.Distance (_target, transform.position) < 0.05) {
+			DoorGestion ();
 		}
+	}
+
+	void FixedUpdate () {
+
+		if (transform.position == _target) {
+			legAnimator.Play ("idle");
+		} else {
+			legAnimator.Play ("legMoving");
+		}
+
+		HandleDirection ();
+		HandleTarget ();
 
 		transform.position = Vector3.MoveTowards (transform.position, _target, speed * Time.deltaTime);
 	}
@@ -79,13 +102,20 @@ public class Enemy : MonoBehaviour {
 	void OnTriggerStay2D (Collider2D other) {
 		transform.rotation = Quaternion.Euler (0, 0, 0);
 
+
 		if (other.gameObject.layer == LayerMask.NameToLayer("Player")) {
 			// TODO passer les portes !
+			//Debug.Log ("DEBUG");
 			Vector3 playerPos = other.gameObject.transform.position;
 			Vector3 dir = (playerPos - transform.position).normalized;
-			RaycastHit2D hit = Physics2D.Raycast (transform.localPosition, dir, Mathf.Infinity, LayerMask.GetMask ("Player", "Wall"));
+			RaycastHit2D hit = Physics2D.Raycast (transform.position, dir, Mathf.Infinity, LayerMask.GetMask ("Player", "Wall"));
+			//Debug.DrawLine (transform.position, dir);
 			if (hit) {
+				//Debug.Log ("COLLID :" + hit.collider.gameObject.layer);
+				//Debug.Log ("LAYER :" + LayerMask.NameToLayer ("Player"));
+				//Debug.Log ("MASK :" + LayerMask.GetMask ("Player"));
 				if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Player")) {
+					//Debug.Log ("1");
 					_alerted = true;
 					_search = false;
 					// _targetObject = other.gameObject;
@@ -93,6 +123,7 @@ public class Enemy : MonoBehaviour {
 					_target = playerPos;
 				}
 				else if (_search && hit.collider.gameObject.layer == LayerMask.NameToLayer("Wall")) {
+					//Debug.Log ("2");
 					_alerted = true;
 					_search = true;
 					// print(Vector3.Distance(_target, transform.position));
@@ -122,7 +153,7 @@ public class Enemy : MonoBehaviour {
 
 	private IEnumerator StopFollowPlayer () {
 		yield return new WaitForSeconds(5);
-		print("FIN COROUTINE");
+		//print("FIN COROUTINE");
 		_alerted = false;
 		_search = false;
 	}

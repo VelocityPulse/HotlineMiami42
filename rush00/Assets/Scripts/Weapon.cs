@@ -38,7 +38,7 @@ public class Weapon : MonoBehaviour {
 		if (ammo != 0 && !coroutineFire) {
 			ammo--;
 			GameObject newShoot = Instantiate (shoot,
-						parent.localPosition + shoot.transform.localPosition,
+						parent.position + shoot.transform.localPosition,
 						 rotation);
 			if (Player.p) {
 				Player.p.audioSource.PlayOneShot (audioClip);
