@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Door : MonoBehaviour {
 
-	// Use this for initialization
+	[SerializeField] public Room room1;
+	[SerializeField] public Room room2;
+
 	void Start () {
 		
 	}
 	
-	// Update is called once per frame
 	void Update () {
 		
 	}

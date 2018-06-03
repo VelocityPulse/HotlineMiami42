@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1698467283606252}
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 2.5, z: 0}
+  m_LocalPosition: {x: 6.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1.500001, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -133,7 +133,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 80346747
   m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 150cbcbe4bfb84fdbbd95b6f14db6ec3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -158,7 +158,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -0.16871524, y: 0.019304018}
-  m_ConnectedAnchor: {x: -0.028956048, y: 2.3312848}
+  m_ConnectedAnchor: {x: 6.471044, y: -0.16871528}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -166,4 +166,4 @@ HingeJoint2D:
   m_UseLimits: 1
   m_AngleLimits:
     m_LowerAngle: -150
-    m_UpperAngle: 0
+    m_UpperAngle: 90
