@@ -121,7 +121,7 @@ public class Enemy : MonoBehaviour {
 	}
 
 	private IEnumerator StopFollowPlayer () {
-		yield return new WaitForSeconds(5);
+		yield return new WaitForSeconds(15);
 		print("FIN COROUTINE");
 		_alerted = false;
 		_search = false;
