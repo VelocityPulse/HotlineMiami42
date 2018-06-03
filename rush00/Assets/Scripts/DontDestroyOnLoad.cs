@@ -10,6 +10,8 @@ public class DontDestroyOnLoad : MonoBehaviour {
 		if (firstTime) {
 			DontDestroyOnLoad (gameObject);
 			firstTime = false;
+		} else {
+			Destroy (gameObject);
 		}
 	}
 
