@@ -26,6 +26,8 @@ public class Player : MonoBehaviour {
 	private Animator legAnimator;
 	private Vector2 direction;
 
+	private bool dead = false;
+
 	// Use this for initialization
 	void Start () {
 		if (p == null) {
@@ -72,10 +74,12 @@ public class Player : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		handleControls ();
-		handleDirection ();
-		makeTranslateAndAnimation ();
-		changeAmmo();
+		if (!dead) {
+			handleControls ();
+			handleDirection ();
+			makeTranslateAndAnimation ();
+			changeAmmo ();
+		}
 	}
 
 	private void tryPickUpWeapon () {
@@ -137,6 +141,7 @@ public class Player : MonoBehaviour {
 		if (invincible) {
 			return;
 		}
+		dead = true;
 		audioSource.PlayOneShot (dieSong);
 		Time.timeScale = 0;
 		hudManager.Loose();
