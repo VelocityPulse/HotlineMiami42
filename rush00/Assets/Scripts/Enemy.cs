@@ -24,6 +24,8 @@ public class Enemy : MonoBehaviour {
 	public GameObject body;
 	public GameObject leg;
 
+	public AudioClip dieSong;
+
 	private Animator legAnimator;
 
 
@@ -177,6 +179,12 @@ public class Enemy : MonoBehaviour {
 
 		// CAS CUL DE SAC A GERER SAC A MERDE
 		// Door newDoor = _room.OtherDoor(_targetObject.GetComponent<Door>());
-
 	}
+
+	public void die() {
+		if (Player.p) {
+			Player.p.audioSource.PlayOneShot (dieSong);
+		}
+	}
+
 }

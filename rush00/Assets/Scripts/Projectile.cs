@@ -32,6 +32,7 @@ public class Projectile : MonoBehaviour {
 			Destroy (gameObject);
 		}
 		if (tag == "Player" && collision.gameObject.layer == LayerMask.NameToLayer ("Enemy")) {
+			collision.gameObject.GetComponent<Enemy> ().die ();
 			Destroy (collision.gameObject);
 			Destroy (gameObject);
 		} else if (tag == "Enemy" && collision.gameObject.layer == LayerMask.NameToLayer ("Player")) {
