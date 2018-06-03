@@ -8,6 +8,9 @@ public class Enemy : MonoBehaviour {
 	private Weapon weapon;
 	private bool _alive;
 	private bool _alerted;
+	private bool _search;
+	private bool _see;
+	
 
 	[SerializeField] private Checkpoint _checkpoint = null;
 	[SerializeField] private float speed;
@@ -18,13 +21,16 @@ public class Enemy : MonoBehaviour {
 	public GameObject weaponAttach;
 	public GameObject body;
 	public GameObject leg;
-	public bool moving;
+
 
 	void Start () {
 		_target = transform.position;
 		_alerted = false;
-		if (moving) {
-			leg.GetComponent<Animator> ().Play ("legMoving");
+		_search = false;
+		_see = false;
+		// _alive = true;
+		if (_checkpoint != null) {
+			leg.GetComponent<Animator>().Play("legMoving");
 		}
 
 		int randomValue = Random.Range (0, weaponPrefabs.Count);
@@ -38,7 +44,7 @@ public class Enemy : MonoBehaviour {
 	void FixedUpdate () {
 		HandleDirection ();
 		if (_alerted) {
-			// tryToFire ();
+			tryToFire ();
 		}
 // if (Input.GetMouseButtonDown(0)) {
 // 				_target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -51,8 +57,20 @@ public class Enemy : MonoBehaviour {
 			}
 			_target = _checkpoint.transform.position;
 		}
+		// Je cherche je dois aller a la porte suivante
+		if (_search && _target == transform.position) {
+			print("je cherche");
+			// donne un chemin au hasard
+			// _target = doorManager.NextDoor(_target);
+			roomManager.OtherDoor(_target);
+			// FOUILLER ALEATOIREMENT
+		}
 		// else if (_alerted && _target == transform.position) {
 		// 	_target = new Vector3(Random.Range(transform.position.x -2, transform.position.x + 2), Random.Range(transform.position.y -2, transform.position.y + 2));
+		// }
+
+		// if (_search) {
+		// 	_target = 
 		// }
 
 		transform.position = Vector3.MoveTowards (transform.position, _target, speed * Time.deltaTime);
@@ -61,8 +79,7 @@ public class Enemy : MonoBehaviour {
 	void OnTriggerExit2D (Collider2D other) {
 		if (other.gameObject.tag == "Player") {
 			if (_alerted) {
-				_alerted = false;
-				// StartCoroutine("StopFollowPlayer");
+				StartCoroutine("StopFollowPlayer");
 			}
 		}
 	}
@@ -70,22 +87,29 @@ public class Enemy : MonoBehaviour {
 	void OnTriggerStay2D (Collider2D other) {
 		transform.rotation = Quaternion.Euler (0, 0, 0);
 
-		if (other.gameObject.tag == "Player") {
+		if (other.gameObject.layer == LayerMask.NameToLayer("Player")) {
 			// TODO passer les portes !
 			Vector3 playerPos = other.gameObject.transform.position;
-			if (_alerted) {
-				_target = playerPos;
-			} else {
-
-				Vector3 dir = (playerPos - transform.position).normalized;
-				RaycastHit2D hit = Physics2D.Raycast (transform.localPosition, dir, Mathf.Infinity, LayerMask.GetMask ("Player", "Wall"));
-				if (hit) {
-					if (hit.collider.gameObject.layer == 11) {
-						_alerted = true;
-						_target = playerPos;
-					}
+			Vector3 dir = (playerPos - transform.position).normalized;
+			RaycastHit2D hit = Physics2D.Raycast (transform.localPosition, dir, Mathf.Infinity, LayerMask.GetMask ("Player", "Wall"));
+			if (hit) {
+				// Je vois le player
+				if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Player")) {
+					_alerted = true;
+					_search = false;
+					_target = playerPos;
+				}
+				// Je l'ai entendu
+				else if (_search && hit.collider.gameObject.layer == LayerMask.NameToLayer("Wall")) {
+					_search = true;
+					// _target = doorManager.NextDoor(_target);
 				}
 			}
+		// Si il y a un projectile (je l'entends) et si je le cherche pas deja
+		} else if (!_search && other.gameObject.layer == LayerMask.NameToLayer("ProjectilePlayer")) {
+			_alerted = true;
+			_search = true;
+			_target = other.gameObject.transform.position;
 		}
 	}
 
@@ -97,8 +121,9 @@ public class Enemy : MonoBehaviour {
 	}
 
 	private IEnumerator StopFollowPlayer () {
-		yield return new WaitForSeconds (2);
+		yield return new WaitForSeconds(5);
 		_alerted = false;
+		_search = false;
 	}
 
 	void tryToFire() {
@@ -109,5 +134,9 @@ public class Enemy : MonoBehaviour {
 	void fire () {
 		weapon.fire (sprites.transform.rotation, transform);
 	}
+
+	// public void ChangeRoomManager(GameObject newRoomManager) {
+	// 	roomManager = newRoomManager.GetComponent<RoomManager>();
+	// }
 
 }
