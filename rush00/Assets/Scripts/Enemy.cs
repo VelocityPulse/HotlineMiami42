@@ -59,6 +59,7 @@ public class Enemy : MonoBehaviour {
 				_target = _targetObject.transform.position;
 			}
 		} else {
+			print("sdfjsldjfk'");
 			_target = transform.position;
 		}
 		if (_alerted) {
@@ -72,7 +73,7 @@ public class Enemy : MonoBehaviour {
 			_targetObject = _checkpoint.gameObject;
 		} else if (Vector3.Distance(_target, transform.position) < 0.4) {
 			// print(_targetObject.transform.position);
-		print(Vector3.Distance(_target, transform.position));
+		// print(Vector3.Distance(_target, transform.position));
 			Door newDoor = _room.NextDoor(_target);
 			if (_room.name == newDoor.room1.name) {
 				_room = newDoor.room2;
@@ -134,7 +135,7 @@ public class Enemy : MonoBehaviour {
 				}
 				else if (_search && hit.collider.gameObject.layer == LayerMask.NameToLayer("Wall")) {
 					_search = true;
-					print(Vector3.Distance(_target, transform.position));
+					// print(Vector3.Distance(_target, transform.position));
 					// print("NEXT DOOR");
 					Door newDoor = _room.NextDoor(_target);
 					_targetObject = newDoor.gameObject;
@@ -144,7 +145,7 @@ public class Enemy : MonoBehaviour {
 		} else if (!_search && other.gameObject.layer == LayerMask.NameToLayer("ProjectilePlayer")) {
 			_alerted = true;
 			_search = true;
-			print(_targetObject.transform.position);
+			// print(_targetObject.transform.position);
 					// print("FIRST NEXT DOOR");
 			Door newDoor = _room.NextDoor(other.gameObject.transform.position);
 			_targetObject = newDoor.gameObject;

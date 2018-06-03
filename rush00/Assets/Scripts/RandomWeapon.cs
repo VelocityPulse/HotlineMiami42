@@ -10,8 +10,8 @@ public class RandomWeapon : MonoBehaviour {
 	void Start () {
 		int randomValue = Random.Range (0, weaponPrefabs.Count);
 
-		weaponPrefabs [randomValue].transform.localPosition = transform.localPosition;
-		GameObject newWeapon = Instantiate (weaponPrefabs [randomValue]);
+		// weaponPrefabs [randomValue].transform.localPosition = transform.localPosition;
+		GameObject newWeapon = Instantiate (weaponPrefabs [randomValue], transform.position, Quaternion.identity);
 		newWeapon.GetComponent<Weapon> ().playerWeapon = true;
 	}
 

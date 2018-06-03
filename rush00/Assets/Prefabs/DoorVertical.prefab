@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 61198377285732698}
   - component: {fileID: 50193139826768562}
   - component: {fileID: 233104514181788790}
-  - component: {fileID: 114643149022249390}
+  - component: {fileID: 114881480153461732}
   m_Layer: 9
   m_Name: DoorVertical
   m_TagString: Door
@@ -38,8 +38,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1537835570142360}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.5, y: -5, z: 0}
-  m_LocalScale: {x: 1, y: 1.5, z: 1}
+  m_LocalPosition: {x: 4.5, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1.0955744, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -89,7 +89,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.38, y: 1}
   m_EdgeRadius: 0
---- !u!114 &114643149022249390
+--- !u!114 &114881480153461732
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -97,9 +97,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1537835570142360}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c88fdd51c109482786fc16d68b751b5, type: 3}
+  m_Script: {fileID: 11500000, guid: 95d96bb2c20134c748a2c47c57f888d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  room1: {fileID: 0}
+  room2: {fileID: 0}
 --- !u!212 &212659839867065480
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -158,7 +160,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -0.16871524, y: 0.019304018}
-  m_ConnectedAnchor: {x: 2.3312848, y: -4.971044}
+  m_ConnectedAnchor: {x: 4.3312845, y: 0.021148987}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
