@@ -7,6 +7,7 @@ public class Weapon : MonoBehaviour {
 
 	public Sprite weapon;
 	public Sprite weaponAttach;
+	public AudioClip audioClip;
 	public GameObject shoot;
 
 	public float speedFire;
@@ -25,7 +26,6 @@ public class Weapon : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-
 		if (coroutineDropping) {
 			transform.Translate (Vector3.up * 15 * Time.deltaTime * -1);
 			//transform.Rotate (Vector3.forward * 20);
@@ -39,6 +39,10 @@ public class Weapon : MonoBehaviour {
 			GameObject newShoot = Instantiate (shoot,
 						parent.localPosition + shoot.transform.localPosition,
 						 rotation);
+			if (Player.p) {
+				Debug.Log ("PLAY");
+				Player.p.audioSource.PlayOneShot (audioClip);
+			}
 			if (!playerWeapon) {
 				newShoot.layer = LayerMask.NameToLayer ("ProjectileEnemy");
 				newShoot.tag = "Enemy";

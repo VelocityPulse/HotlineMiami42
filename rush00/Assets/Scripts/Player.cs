@@ -10,6 +10,10 @@ public class Player : MonoBehaviour {
 	public GameObject body;
 	public GameObject leg;
 
+	public AudioSource audioSource = null;
+
+	public static Player p = null;
+
 	private Weapon weapon = null;
 
 	public float speed;
@@ -17,9 +21,11 @@ public class Player : MonoBehaviour {
 	private Animator legAnimator;
 	private Vector2 direction;
 
-
 	// Use this for initialization
 	void Start () {
+		if (p == null) {
+			p = this;
+		}
 		legAnimator = leg.GetComponent<Animator> ();
 		direction = Vector2.zero;
 	}
@@ -28,32 +34,6 @@ public class Player : MonoBehaviour {
 	void handleControls () {
 		direction.x = Input.GetAxis("Horizontal");
 		direction.y = Input.GetAxis("Vertical");
-
-		// if (Input.GetKeyDown (KeyCode.A)) {
-		// 	direction += Vector2.left;
-		// }
-		// if (Input.GetKeyDown (KeyCode.D)) {
-		// 	direction += Vector2.right;
-		// }
-		// if (Input.GetKeyDown (KeyCode.S)) {
-		// 	direction += Vector2.down;
-		// }
-		// if (Input.GetKeyDown (KeyCode.W)) {
-		// 	direction += Vector2.up;
-		// }
-
-		// if (Input.GetKeyUp (KeyCode.A)) {
-		// 	direction -= Vector2.left;
-		// }
-		// if (Input.GetKeyUp (KeyCode.D)) {
-		// 	direction -= Vector2.right;
-		// }
-		// if (Input.GetKeyUp (KeyCode.S)) {
-		// 	direction -= Vector2.down;
-		// }
-		// if (Input.GetKeyUp (KeyCode.W)) {
-		// 	direction -= Vector2.up;
-		// }
 
 		if (Input.GetKeyDown (KeyCode.E)) {
 			tryPickUpWeapon ();
@@ -72,11 +52,6 @@ public class Player : MonoBehaviour {
 	void makeTranslateAndAnimation () {
 		gameObject.GetComponent<Rigidbody2D>().velocity = direction * speed;
 		gameObject.transform.rotation = new Quaternion(0, 0, 0, 0);
-
-
-		// transform.Translate (new Vector3 (direction.x, direction.y, 0)
-		// 					 * Time.deltaTime
-		// 					 * speed);
 
 		if (direction != Vector2.zero) {
 			legAnimator.Play ("legMoving");
