@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1290683885820246}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9, y: 0.5, z: 0}
+  m_LocalPosition: {x: 9, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -125,6 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff8d0d8336c794189a5b63ed56ad7f81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponName: Saber
   weapon: {fileID: 21300000, guid: f47402979bf234b2d8a7c4f680d637d0, type: 3}
   weaponAttach: {fileID: 21300000, guid: 6a80894c63238427280b822e403bcc63, type: 3}
   audioClip: {fileID: 8300000, guid: 48d68d12751aa44cb87bfa4f2ca98bb6, type: 3}

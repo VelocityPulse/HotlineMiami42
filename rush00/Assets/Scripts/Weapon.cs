@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour {
 
+	public string weaponName;
 	public Sprite weapon;
 	public Sprite weaponAttach;
 	public AudioClip audioClip;

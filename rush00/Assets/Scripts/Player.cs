@@ -9,6 +9,7 @@ public class Player : MonoBehaviour {
 	public GameObject weaponAttach;
 	public GameObject body;
 	public GameObject leg;
+	public HUDManager hudManager;
 
 	public AudioClip winSong = null;
 	public AudioClip dieSong = null;
@@ -75,6 +76,7 @@ public class Player : MonoBehaviour {
 		handleControls ();
 		handleDirection ();
 		makeTranslateAndAnimation ();
+		changeAmmo();
 	}
 
 	private void tryPickUpWeapon () {
@@ -103,12 +105,26 @@ public class Player : MonoBehaviour {
 		weaponAttach.SetActive (true);
 		weaponAttach.GetComponent<SpriteRenderer> ().sprite = weapon.weaponAttach;
 		weapon.spriteRenderer.enabled = false;
+		hudManager.ChangeWeapon(weapon.weaponName.ToString());
 	}
 
 	void dropWeapon () {
 		weapon.drop (sprites.transform.rotation, transform.localPosition);
 		weapon = null;
 		weaponAttach.SetActive (false);
+		hudManager.ChangeWeapon("No Weapon");
+	}
+
+	void changeAmmo() {
+		if (weapon != null) {
+			if (weapon.ammo <= 0) {
+				hudManager.ChangeAmmo("No Minution");
+			} else {
+				hudManager.ChangeAmmo(weapon.ammo.ToString());				
+			}
+		} else {
+			hudManager.ChangeAmmo("-");
+		}
 	}
 
 	private void OnTriggerStay2D (Collider2D other) {
@@ -116,20 +132,21 @@ public class Player : MonoBehaviour {
 	}
 
 	public void die () {
-		Debug.Log ("DIE");
+		// Debug.Log ("DIE");
 		if (invincible) {
 			return;
 		}
-		UnityEngine.SceneManagement.SceneManager.LoadScene (
-			UnityEngine.SceneManagement.SceneManager.GetActiveScene ().name);
-		Debug.Log ("reload");
+		// UnityEngine.SceneManagement.SceneManager.LoadScene (
+		// 	UnityEngine.SceneManagement.SceneManager.GetActiveScene ().name);
+		// Debug.Log ("reload");
 		audioSource.PlayOneShot (dieSong);
-
+		hudManager.Loose();
 	}
 
 	public void win () {
 		audioSource.PlayOneShot (winSong);
-		Debug.Log ("WIN");
+		hudManager.Win();
+		// Debug.Log ("WIN");
 	}
 
 }
