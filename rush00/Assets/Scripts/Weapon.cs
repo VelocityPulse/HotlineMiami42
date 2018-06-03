@@ -40,7 +40,6 @@ public class Weapon : MonoBehaviour {
 						parent.localPosition + shoot.transform.localPosition,
 						 rotation);
 			if (Player.p) {
-				Debug.Log ("PLAY");
 				Player.p.audioSource.PlayOneShot (audioClip);
 			}
 			if (!playerWeapon) {
